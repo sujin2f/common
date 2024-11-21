@@ -1,0 +1,7 @@
+@use '../variable';
+
+.article-header {
+    background-color: variable.$darkest-gray;
+    min-height: 14rem;
+    color: white;
+}

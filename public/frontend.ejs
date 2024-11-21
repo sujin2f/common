@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><%= siteName %></title>
+        <meta name="description" content="<%= description %>" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <base href="/" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <% css.forEach(function(bundle) { %>
+        <link rel="stylesheet" type="text/css" href="/<%= bundle %>" />
+        <% }); %>
+        <meta property="og:title" content="<%= siteName %>" />
+        <meta property="og:description" content="<%= description %>" />
+        <meta property="og:url" content="<%= url %>" />
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:title" content="<%= siteName %>" />
+        <meta property="twitter:description" content="<%= description %>" />
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root" role="main"></div>
+        <% js.forEach(function(bundle) { %>
+        <script src="/<%= bundle %>"></script>
+        <% }); %>
+    </body>
+</html>
