@@ -1,4 +1,5 @@
 import { PropsWithChildren, createElement } from 'react'
+import { className } from 'src/common/utils/string'
 
 type Props = {
     className?: string
@@ -12,15 +13,16 @@ type Props = {
  */
 export const Row = (props: PropsWithChildren<Props>): JSX.Element => {
     const type = props.dom || 'div'
-    const className = [
-        'row',
-        props.className || '',
-        props.expanded && 'expanded',
-    ].filter((v) => v)
 
     return createElement(
         type,
-        { className: className.join(' ') },
+        {
+            className: className(
+                'row',
+                props.className,
+                props.expanded && 'expanded',
+            ),
+        },
         props.children,
     )
 }

@@ -1,10 +1,7 @@
 import { Action } from 'src/frontend/store/store'
+import { ActionType } from 'src/frontend/store/constants'
 
-export const SET_DUMMY = 'mongo/v1/SET_DUMMY'
-
-export const setDummy = (dummy: boolean): Partial<Action> => {
-    return {
-        type: SET_DUMMY,
-        dummy,
-    }
-}
+export const setDummy = (dummy: boolean): Partial<Action> => ({
+    type: ActionType.SET_DUMMY,
+    dummy,
+})

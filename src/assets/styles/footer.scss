@@ -1,0 +1,7 @@
+@use 'variable';
+
+footer {
+    background-color: variable.$darkest-gray;
+    color: white;
+    padding: 1em 0;
+}

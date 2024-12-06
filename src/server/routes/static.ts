@@ -30,7 +30,7 @@ const getGlobalVariable = async (req: Request): Promise<GlobalVariable> => {
     return {
         siteName: process.env.TITLE as string,
         description: process.env.DESCRIPTION as string,
-        url: process.env.URL as string,
+        url: process.env.PUBLIC_URL as string,
     }
 }
 

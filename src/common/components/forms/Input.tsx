@@ -1,5 +1,5 @@
 import React, {
-    ChangeEvent,
+    ChangeEventHandler,
     Fragment,
     KeyboardEvent,
     RefObject,
@@ -13,7 +13,20 @@ import { className as getClassName } from 'src/common/utils/string'
 type Props = {
     label?: string
     id?: string
-    type?: string
+    type?:
+        | 'text'
+        | 'number'
+        | 'checkbox'
+        | 'color'
+        | 'date'
+        | 'email'
+        | 'file'
+        | 'password'
+        | 'radio'
+        | 'range'
+        | 'tel'
+        | 'time'
+        | 'url'
     defaultValue?: string | number
     reference?: RefObject<HTMLInputElement>
     helpText?: string
@@ -22,9 +35,9 @@ type Props = {
     inlineLabel?: string
     list?: string
     onEnterKeyDown?: () => void
-    onChange?: (e?: ChangeEvent) => void
+    onChange?: ChangeEventHandler<HTMLInputElement>
     autoFocus?: boolean
-    value?: string
+    value?: string | number
     placeholder?: string
     name?: string
 }
