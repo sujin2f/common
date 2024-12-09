@@ -1,8 +1,8 @@
 FROM node:latest
 WORKDIR /home/node/app
-COPY package*.json ./
+COPY package*.json .
 RUN yarn
-COPY . /
+COPY . .
 EXPOSE 80
 RUN yarn prod
 CMD ['yarn', 'prod:server']
