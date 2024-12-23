@@ -1,5 +1,5 @@
 @use 'sass:color';
-@use '../variable';
+@use 'variable';
 
 @mixin button($color) {
     $dark: color.adjust($color, $lightness: -10%);
@@ -29,9 +29,9 @@
 }
 
 .button {
-    @include button(variable.$primary-color);
+    @include button(variable.$primary);
 
     &.primary {
-        @include button(variable.$primary-color);
+        @include button(variable.$primary);
     }
 }

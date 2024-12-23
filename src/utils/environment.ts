@@ -19,7 +19,7 @@ export const baseDir = path.resolve(
 )
 
 export const bundles = (): string[] => {
-    const manifest = path.resolve(baseDir, 'frontend', 'asset-manifest.json')
+    const manifest = path.resolve(baseDir, 'frontend', 'manifest.json')
     const raw = fs.readFileSync(manifest).toString()
-    return JSON.parse(raw).entrypoints
+    return JSON.parse(raw)
 }

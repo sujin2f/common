@@ -10,23 +10,23 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
         ports:
             - 27017:27017
-    node:
-        container_name: bootstrap-production
-        image: node:latest
-        restart: unless-stopped
-        ports:
-            - ${PORT}:${PORT}
-        volumes:
-            - './public:/app/public'
-            - './.build:/app/.build'
-            - './node_modules:/app/node_modules'
-            - './package.json:/app/package.json'
-        environment:
-            MONGO: mongo
-            MONGO_USER: ${MONGO_USER}
-            MONGO_PASS: ${MONGO_PASS}
-            MONGO_DATABASE: ${MONGO_DATABASE}
-            PORT: ${PORT}
-        depends_on:
-            - mongo
-        command: sh -c "cd /app && yarn prod:server"
+    # node:
+    #     container_name: bootstrap-production
+    #     image: node:latest
+    #     restart: unless-stopped
+    #     ports:
+    #         - ${PORT}:${PORT}
+    #     volumes:
+    #         - './public:/app/public'
+    #         - './.build:/app/.build'
+    #         - './node_modules:/app/node_modules'
+    #         - './package.json:/app/package.json'
+    #     environment:
+    #         MONGO: mongo
+    #         MONGO_USER: ${MONGO_USER}
+    #         MONGO_PASS: ${MONGO_PASS}
+    #         MONGO_DATABASE: ${MONGO_DATABASE}
+    #         PORT: ${PORT}
+    #     depends_on:
+    #         - mongo
+    #     command: sh -c "cd /app && yarn prod:server"

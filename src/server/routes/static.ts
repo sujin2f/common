@@ -20,6 +20,13 @@ staticRouter.get(
 )
 
 /**
+ * JS
+ */
+staticRouter.get('/(*).js', (req, res) => {
+    res.sendFile(`${baseDir}/frontend${req.url}`)
+})
+
+/**
  * Static Dir
  */
 staticRouter.get('/static(/*)', (req, res) => {
@@ -44,8 +51,12 @@ export const showReact = async (req: Request, res: Response): Promise<void> => {
     const html = await ejs
         .renderFile(filePath, {
             ...globalVariable,
-            js: bundleData.filter((value) => value.endsWith('.js')),
-            css: bundleData.filter((value) => value.endsWith('.css')),
+            js: Object.values(bundleData).filter((value) =>
+                value.endsWith('.js'),
+            ),
+            css: Object.values(bundleData).filter((value) =>
+                value.endsWith('.css'),
+            ),
         })
         .catch((e) => console.error(e))
     res.send(html)

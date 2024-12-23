@@ -2,7 +2,7 @@ import React from 'react'
 import { Column } from 'src/common/components/layout/Column'
 import { Row } from 'src/common/components/layout/Row'
 
-require('src/assets/styles/footer.scss')
+require('src/frontend/scss/footer.scss')
 
 export const Footer = (): JSX.Element => {
     return (

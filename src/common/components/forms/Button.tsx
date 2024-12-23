@@ -5,7 +5,7 @@ import { MouseEventCallback } from 'src/common/types/react'
 import { Icon } from 'src/common/components/containers/Icon'
 import { useNavigate } from 'react-router-dom'
 
-require('src/assets/styles/common/button.scss')
+require('src/common/scss/button.scss')
 
 type Props = {
     title?: string | number

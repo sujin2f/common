@@ -6,7 +6,7 @@ import { Footer } from 'src/frontend/scenes/Footer'
 export const Public = (props: PropsWithChildren): JSX.Element => {
     return (
         <Fragment>
-            <TopBar />
+            {/* <TopBar /> */}
             {props.children}
             <Footer />
         </Fragment>

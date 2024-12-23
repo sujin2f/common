@@ -1,0 +1,101 @@
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
+const commonPaths = require('./paths')
+const { inDev, createWebpackAliases } = require('./helpers')
+
+module.exports = {
+    entry: commonPaths.entryPath,
+    module: {
+        rules: [
+            {
+                // Typescript loader
+                test: /\.tsx?$/,
+                exclude: /(node_modules|\.webpack)/,
+                use: {
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true,
+                    },
+                },
+            },
+            {
+                // CSS Loader
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: inDev()
+                            ? 'style-loader'
+                            : MiniCssExtractPlugin.loader,
+                    },
+                    { loader: 'css-loader' },
+                ],
+            },
+            {
+                // SCSS (SASS) Loader
+                test: /\.s[ac]ss$/i,
+                use: [
+                    {
+                        loader: inDev()
+                            ? 'style-loader'
+                            : MiniCssExtractPlugin.loader,
+                    },
+                    { loader: 'css-loader' },
+                    {
+                        loader: 'sass-loader',
+                        options: { api: 'modern' },
+                    },
+                ],
+            },
+            {
+                // Less loader
+                test: /\.less$/,
+                use: [
+                    {
+                        loader: inDev()
+                            ? 'style-loader'
+                            : MiniCssExtractPlugin.loader,
+                    },
+                    { loader: 'css-loader' },
+                    { loader: 'less-loader' },
+                ],
+            },
+            {
+                // Assets loader
+                // More information here https://webpack.js.org/guides/asset-modules/
+                test: /\.(gif|jpe?g|tiff|png|webp|bmp|svg|eot|ttf|woff|woff2)$/i,
+                type: 'asset',
+                generator: {
+                    filename: 'assets/[hash][ext][query]',
+                },
+            },
+        ],
+    },
+    resolve: {
+        modules: ['src', 'node_modules'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss'],
+        alias: createWebpackAliases({
+            src: 'src',
+        }),
+    },
+    plugins: [
+        new webpack.ProgressPlugin(),
+        new HtmlWebpackPlugin({
+            template: commonPaths.templatePath,
+        }),
+        new WebpackManifestPlugin({
+            publicPath: '',
+        }),
+        // new ScriptExtHtmlWebpackPlugin({
+        //     defaultAttribute: 'async',
+        // }),
+        // new ESLintPlugin({
+        //     extensions: ['js', 'jsx', 'ts', 'tsx'],
+        //     fix: true,
+        //     emitWarning: process.env.NODE_ENV !== 'production',
+        // }),
+    ],
+}

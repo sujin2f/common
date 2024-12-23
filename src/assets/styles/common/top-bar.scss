@@ -60,5 +60,11 @@ $logo_width: 84px;
 
     ul {
         background-color: transparent;
+        margin: 0;
+        padding: 0;
+
+        li {
+            list-style: none;
+        }
     }
 }

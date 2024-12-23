@@ -1,21 +1,31 @@
 @use 'variable';
-@use 'mixin';
+
+:root {
+    --black: #{variable.$black};
+    --dark-gray: #{variable.$dark-gray};
+    --white: #{variable.$white};
+    --primary: #{variable.$primary};
+    --font: 'Ubuntu', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial,
+        sans-serif;
+    --max-width: 75rem;
+}
 
 html {
     scroll-behavior: smooth;
-    font-size: 13pt;
+    font-size: 12pt;
 }
 
-html[lang='en-US'],
 body {
-    font-family: variable.$body-font-family;
-    font-weight: 300;
-    margin: 0 !important;
+    font-weight: 400;
+    font-family: var(--font);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--black);
 }
 
 ::selection {
-    background-color: variable.$primary-color;
-    color: variable.$white;
+    background-color: var(--primary);
+    color: var(--white);
 }
 
 strong {
@@ -24,7 +34,12 @@ strong {
 
 a,
 .anchor {
-    color: variable.$primary-color;
+    color: var(--primary);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 p {
@@ -41,9 +56,8 @@ h3,
 h4,
 h5,
 h6 {
-    @include mixin.capitalize;
+    text-transform: capitalize;
     font-weight: 500;
-    font-family: variable.$body-font-family;
     letter-spacing: -0.05em;
 }
 
@@ -70,22 +84,6 @@ h5 {
 
 h6 {
     font-size: 1.2rem;
-}
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-menu,
-nav,
-section,
-summary {
-    overflow: auto;
 }
 
 button {
