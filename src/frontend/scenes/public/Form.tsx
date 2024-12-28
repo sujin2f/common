@@ -14,24 +14,22 @@ const Form = (): JSX.Element => {
             <Row dom="main">
                 <Column dom="article" small={12} medium={8} mediumOffset={2}>
                     <form>
-                        <div className="grid-container">
-                            <div className="grid-x grid-padding-x">
-                                <div className="medium-6 cell">
-                                    <Input
-                                        type="text"
-                                        placeholder=".medium-6.cell"
-                                        label="Input Label"
-                                    />
-                                </div>
-                                <div className="medium-6 cell">
-                                    <Input
-                                        type="text"
-                                        placeholder=".medium-6.cell"
-                                        label="Input Label"
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                        <Row>
+                            <Column small={6}>
+                                <Input
+                                    type="text"
+                                    placeholder="PlaceHolder"
+                                    label="Input Label"
+                                />
+                            </Column>
+                            <Column small={6}>
+                                <Input
+                                    type="text"
+                                    placeholder="PlaceHolder"
+                                    label="Input Label"
+                                />
+                            </Column>
+                        </Row>
                         <label>
                             What books did you read over summer break?
                             <textarea placeholder="None"></textarea>
@@ -55,8 +53,8 @@ const Form = (): JSX.Element => {
                             }}
                             multiple={true}
                         />
-                        <div className="grid-x grid-padding-x">
-                            <fieldset className="large-5 cell">
+                        <Row>
+                            <Column dom="fieldset" small={5}>
                                 <legend>Choose Your Favorite</legend>
                                 <Input
                                     type="radio"
@@ -80,8 +78,8 @@ const Form = (): JSX.Element => {
                                     id="pokemonYellow"
                                 />
                                 <label htmlFor="pokemonYellow">Yellow</label>
-                            </fieldset>
-                            <fieldset className="large-7 cell">
+                            </Column>
+                            <Column dom="fieldset" small={5}>
                                 <legend>Check these out</legend>
                                 <Input id="checkbox1" type="checkbox" />
                                 <label htmlFor="checkbox1">Checkbox 1</label>
@@ -89,9 +87,9 @@ const Form = (): JSX.Element => {
                                 <label htmlFor="checkbox2">Checkbox 2</label>
                                 <Input id="checkbox3" type="checkbox" />
                                 <label htmlFor="checkbox3">Checkbox 3</label>
-                            </fieldset>
-                        </div>
-                        <fieldset className="fieldset">
+                            </Column>
+                        </Row>
+                        <fieldset>
                             <legend>Check these out</legend>
                             <Input id="checkbox12" type="checkbox" />
                             <label htmlFor="checkbox12">Checkbox 1</label>

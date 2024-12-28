@@ -1,38 +1,26 @@
-import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 
-import 'src/assets/styles/common/top-bar.scss'
 import { Row } from './Row'
 import { Column } from './Column'
+import { className } from 'src/common/utils/string'
+
+import 'src/common/scss/top-bar.scss'
 
 type Props = {
     left?: JSX.Element
     right?: JSX.Element
+    className?: string
 }
 
 export const TopBar = (props: Props): JSX.Element => {
     return (
-        <Fragment>
-            <header className="top-bar">
-                <div className="top-bar__background">
-                    <div className="top-bar__half"></div>
-                    <div className="top-bar__background__logo"></div>
-                    <div className="top-bar__half"></div>
+        <Row className={className('top-bar', props.className)} dom="header">
+            <Column small={12}>
+                <div className="top-bar__foreground">
+                    <div className="top-bar__left">{props.left}</div>
+                    <div className="top-bar__rght">{props.right}</div>
                 </div>
-                <Row>
-                    <Column small={12}>
-                        <div className="top-bar__foreground">
-                            <div className="top-bar__half">{props.left}</div>
-                            <Link
-                                className="top-bar__foreground__logo"
-                                to="/"
-                            />
-                            <div className="top-bar__half">{props.right}</div>
-                        </div>
-                    </Column>
-                </Row>
-            </header>
-            <div className="top-bar__fixed-adjust" />
-        </Fragment>
+            </Column>
+        </Row>
     )
 }

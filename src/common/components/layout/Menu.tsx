@@ -1,72 +1,99 @@
-import React, { useRef, RefObject, useCallback, useMemo } from 'react'
+import React, {
+    useRef,
+    RefObject,
+    useCallback,
+    useMemo,
+    useState,
+    useEffect,
+} from 'react'
 import { Link } from 'react-router-dom'
 
 import { MenuItem as TypeMenuItem } from 'src/common/types/menu'
 import { className, generateUUID } from 'src/common/utils/string'
+import Arrow from 'src/common/images/icons/arrow_drop_up.svg'
 
-require('src/assets/styles/common/menu.scss')
+require('src/common/scss/menu.scss')
 
 type ComponentProps = {
     className?: string
     dropdown?: 'hover' | 'click'
     items: TypeMenuItem[]
-    reference?: RefObject<HTMLUListElement>
+    direction?: 'vertical' | 'horizontal'
 }
 
 type BlockProps = {
     dropdown?: 'hover' | 'click'
     items: TypeMenuItem[]
-    reference?: RefObject<HTMLUListElement>
+    direction: 'vertical' | 'horizontal'
 }
 
 type ItemProps = {
     item: TypeMenuItem
     dropdown?: 'hover' | 'click'
+    direction: 'vertical' | 'horizontal'
 }
 
 const MenuItem = (props: ItemProps): JSX.Element => {
-    const children = useRef<HTMLUListElement>(null)
+    const hasChildren = !!props.item.children
+    const [closed, changeClosed] = useState(
+        hasChildren && props.dropdown ? true : false,
+    )
 
     const onMouseOver = useCallback(() => {
         if (props.dropdown === 'hover') {
-            children.current?.classList.add('dropdown--show')
+            changeClosed(false)
         }
     }, [props.dropdown])
 
     const onMouseLeave = useCallback(() => {
         if (props.dropdown === 'hover') {
-            children.current?.classList.remove('dropdown--show')
+            changeClosed(true)
         }
     }, [props.dropdown])
 
     const onClick = useCallback(() => {
         if (props.dropdown === 'click') {
-            if (children.current?.classList.contains('dropdown--show')) {
-                children.current?.classList.remove('dropdown--show')
-            } else {
-                children.current?.classList.add('dropdown--show')
-            }
+            changeClosed(!closed)
         }
-    }, [props.dropdown])
+    }, [props.dropdown, closed])
 
     const linkTo = useMemo(() => {
-        if (props.dropdown === 'click') {
+        if (hasChildren) {
             return ''
         }
         return props.item.link
-    }, [props.dropdown, props.item.link])
+    }, [props.item.link, hasChildren])
+
+    const classNames = useMemo(
+        () =>
+            className(
+                'menu__item',
+                closed && 'menu__item--closed',
+                hasChildren && !closed && 'menu__item--opened',
+                hasChildren && 'menu__item--children',
+            ),
+        [closed, hasChildren],
+    )
 
     return (
         <li
-            key={`menu-${props.item.title}-${generateUUID()}`}
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
             onClick={onClick}
+            className={classNames}
         >
-            <Link to={linkTo}>{props.item.title}</Link>
+            <Link to={linkTo} className="menu__link">
+                {props.item.title}
+                {props.dropdown && props.item.children && (
+                    <Arrow className="menu__link__arrow" />
+                )}
+            </Link>
 
             {props.item.children && (
-                <MenuBlock items={props.item.children} reference={children} />
+                <MenuBlock
+                    items={props.item.children}
+                    direction={props.direction}
+                />
             )}
         </li>
     )
@@ -74,15 +101,13 @@ const MenuItem = (props: ItemProps): JSX.Element => {
 
 const MenuBlock = (props: BlockProps): JSX.Element => {
     return (
-        <ul
-            className={className('menu', props.dropdown && 'dropdown')}
-            ref={props.reference}
-        >
+        <ul className="menu">
             {props.items.map((menu) => (
                 <MenuItem
                     key={`menu-${menu.title}-${generateUUID()}`}
                     item={menu}
                     dropdown={props.dropdown}
+                    direction={props.direction}
                 />
             ))}
         </ul>
@@ -90,9 +115,21 @@ const MenuBlock = (props: BlockProps): JSX.Element => {
 }
 
 export const Menu = (props: ComponentProps): JSX.Element => {
+    const direction = props.direction || 'horizontal'
+    const cls = className(
+        'menu__container',
+        `menu__container--${direction}`,
+        props.className,
+    )
+    const dropdown =
+        direction === 'horizontal' && !props.dropdown ? 'hover' : props.dropdown
     return (
-        <nav className={props.className}>
-            <MenuBlock dropdown={props.dropdown} items={props.items} />
+        <nav className={cls}>
+            <MenuBlock
+                dropdown={dropdown}
+                items={props.items}
+                direction={direction}
+            />
         </nav>
     )
 }

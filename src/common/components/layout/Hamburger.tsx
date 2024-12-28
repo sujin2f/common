@@ -5,7 +5,7 @@ import { Menu } from './Menu'
 import { useDocumentClick } from 'src/common/hooks/useDocumentClick'
 import { useEscapeKey } from 'src/common/hooks/useEscapeKey'
 
-require('src/assets/styles/common/hamburger.scss')
+require('src/common/scss/hamburger.scss')
 
 type Props = {
     menu: MenuItem[]

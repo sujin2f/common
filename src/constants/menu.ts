@@ -25,6 +25,10 @@ export const menuItems: MenuItem[] = [
                 title: 'Grid',
                 link: '/grid',
             },
+            {
+                title: 'Navigation',
+                link: '/navigation',
+            },
         ],
     },
 ]

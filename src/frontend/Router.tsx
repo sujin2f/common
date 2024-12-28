@@ -10,6 +10,7 @@ const Typography = lazy(() => import('src/frontend/scenes/public/Typography'))
 const State = lazy(() => import('src/frontend/scenes/public/State'))
 const Form = lazy(() => import('src/frontend/scenes/public/Form'))
 const Grid = lazy(() => import('src/frontend/scenes/public/Grid'))
+const Navigation = lazy(() => import('src/frontend/scenes/public/Navigation'))
 
 export const Router = (): JSX.Element => {
     return (
@@ -54,6 +55,14 @@ export const Router = (): JSX.Element => {
                         element={
                             <Public>
                                 <Form />
+                            </Public>
+                        }
+                    />
+                    <Route
+                        path="/navigation"
+                        element={
+                            <Public>
+                                <Navigation />
                             </Public>
                         }
                     />

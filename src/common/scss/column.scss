@@ -32,5 +32,27 @@ $width: calc((100% - (11 * 1em)) / 12);
                 }
             }
         }
+
+        @for $i from 1 through 11 {
+            &.small-offset-#{$i} {
+                margin-left: calc(#{$width} * #{$i} + #{$i}em);
+            }
+        }
+
+        @for $i from 1 through 11 {
+            @include mixin.medium {
+                &.medium-offset-#{$i} {
+                    margin-left: calc(#{$width} * #{$i} + #{$i}em);
+                }
+            }
+        }
+
+        @for $i from 1 through 11 {
+            @include mixin.large {
+                &.large-offset-#{$i} {
+                    margin-left: calc(#{$width} * #{$i} + #{$i}em);
+                }
+            }
+        }
     }
 }
