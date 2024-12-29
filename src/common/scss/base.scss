@@ -1,4 +1,5 @@
 @use 'variable';
+@use 'mixin';
 
 :root {
     --black: #{variable.$black};
@@ -6,6 +7,7 @@
     --gray: #{variable.$gray};
     --white: #{variable.$white};
     --primary: #{variable.$primary};
+    --warning: #{variable.$warning};
     --font: 'Ubuntu', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial,
         sans-serif;
     --max-width: 75rem;
@@ -107,4 +109,28 @@ button {
 
 .hide {
     display: none;
+}
+
+.show-for-small-only {
+    display: inherit !important;
+
+    @include mixin.medium {
+        display: none !important;
+    }
+
+    @include mixin.large {
+        display: none !important;
+    }
+}
+
+.hide-for-small-only {
+    display: none !important;
+
+    @include mixin.medium {
+        display: inherit !important;
+    }
+
+    @include mixin.large {
+        display: inherit !important;
+    }
 }

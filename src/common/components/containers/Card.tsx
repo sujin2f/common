@@ -1,15 +1,5 @@
-import React, {
-    PropsWithChildren,
-    MouseEvent,
-    useCallback,
-    useState,
-    Fragment,
-} from 'react'
+import React, { PropsWithChildren } from 'react'
 
-import { CloseButton } from 'src/common/components/forms/CloseButton'
-import { Button } from 'src/common/components/forms/Button'
-import { Overlay } from 'src/common/components/containers/Overlay'
-import { MouseEventCallback } from 'src/common/types/react'
 import { className } from 'src/common/utils/string'
 import { Link } from 'react-router-dom'
 import { ShortMonthNames } from 'src/common/constants/datetime'

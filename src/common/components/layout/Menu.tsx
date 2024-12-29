@@ -1,11 +1,4 @@
-import React, {
-    useRef,
-    RefObject,
-    useCallback,
-    useMemo,
-    useState,
-    useEffect,
-} from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { MenuItem as TypeMenuItem } from 'src/common/types/menu'

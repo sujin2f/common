@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 
 import { Row } from './Row'
 import { Column } from './Column'
@@ -10,17 +10,20 @@ type Props = {
     left?: JSX.Element
     right?: JSX.Element
     className?: string
+    fullWidth?: boolean
 }
 
-export const TopBar = (props: Props): JSX.Element => {
+export const TopBar = (props: PropsWithChildren<Props>): JSX.Element => {
+    const { left, right, className: cls, fullWidth, children } = props
     return (
-        <Row className={className('top-bar', props.className)} dom="header">
-            <Column small={12}>
-                <div className="top-bar__foreground">
-                    <div className="top-bar__left">{props.left}</div>
-                    <div className="top-bar__rght">{props.right}</div>
-                </div>
-            </Column>
+        <Row
+            className={className('top-bar', cls)}
+            dom="section"
+            fullWidth={fullWidth}
+        >
+            {left && <Column small={6}>{left}</Column>}
+            {right && <Column small={6}>{right}</Column>}
+            {children}
         </Row>
     )
 }

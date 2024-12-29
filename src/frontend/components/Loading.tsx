@@ -5,8 +5,8 @@
 
 import React from 'react'
 
-import IMG_loading from 'src/assets/images/loading.svg'
+import IMG_LOADING from 'src/assets/images/loading.svg'
 
 export const Loading = (): JSX.Element => {
-    return <IMG_loading />
+    return <IMG_LOADING />
 }

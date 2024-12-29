@@ -13,6 +13,6 @@ module.exports = {
         compress: true,
         hot: true,
     },
-    plugins: [new ReactRefreshWebpackPlugin()],
+    // plugins: [new ReactRefreshWebpackPlugin()],
     devtool: 'source-map',
 }

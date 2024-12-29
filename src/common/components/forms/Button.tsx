@@ -5,7 +5,7 @@ import { MouseEventCallback } from 'src/common/types/react'
 import { Icon } from 'src/common/components/containers/Icon'
 import { useNavigate } from 'react-router-dom'
 
-require('src/common/scss/button.scss')
+require('src/common/scss/form.scss')
 
 type Props = {
     title?: string | number
@@ -20,10 +20,6 @@ type Props = {
     to?: string
 }
 
-/*
- * Button Component in Foundation Site
- * @ref https://get.foundation/sites/docs/button.html
- */
 export const Button = (props: Props): JSX.Element => {
     const { autoFocus, icon, type, id } = props
     const navigate = useNavigate()
@@ -33,8 +29,8 @@ export const Button = (props: Props): JSX.Element => {
         return getClassName(
             'button',
             props.className,
-            color,
-            props.hollow && 'hollow',
+            `button--${color}`,
+            props.hollow && 'button--hollow',
         )
     }, [props.className, props.color, props.hollow])
 

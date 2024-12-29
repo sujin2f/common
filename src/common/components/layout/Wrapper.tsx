@@ -1,4 +1,4 @@
-import React, { Fragment, PropsWithChildren, useEffect } from 'react'
+import React, { Fragment, PropsWithChildren } from 'react'
 import { useFontLoader } from 'src/common/hooks/useFontLoader'
 
 require('src/common/scss/normalize.css')

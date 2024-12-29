@@ -7,6 +7,8 @@ import React, {
 } from 'react'
 import { className, generateUUID } from '../../utils/string'
 
+require('src/common/scss/form.scss')
+
 type OptGroup = Record<string, string>
 
 type Props = {
@@ -42,8 +44,8 @@ export const Select = forwardRef(
         const id = props.id || generateUUID()
         const ariaDescribedby = helpText ? `${id}-help-text` : ''
         const labelClassName = className(
-            'form-label',
-            required && 'form-label--required',
+            'form__label',
+            required && 'form__label--required',
         )
 
         const onChange = useCallback(
@@ -74,6 +76,7 @@ export const Select = forwardRef(
                     required={required}
                     aria-describedby={ariaDescribedby}
                     onChange={onChange}
+                    className="form__input"
                 >
                     {Object.entries(options).map(
                         ([optionValue, optionText]) => {
