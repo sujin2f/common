@@ -1,8 +1,6 @@
-@use 'variable';
-
 .scene__front-page {
-    background-color: variable.$darkest-gray;
-    height: calc(100vh - #{variable.$header-height});
+    background-color: var(--black);
+    height: calc(100vh - var(--header-height));
     color: white;
     display: flex;
     align-items: center;
@@ -15,7 +13,7 @@
     }
 
     p {
-        background-color: variable.$primary-color;
+        background-color: var(--primary);
         font-size: 1.4rem;
         font-weight: 600;
         padding: 0 0.5em;

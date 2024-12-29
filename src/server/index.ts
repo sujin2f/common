@@ -5,9 +5,8 @@ import path from 'path'
 import moduleAlias from 'module-alias'
 import http from 'http'
 
+const { baseDir, rootDir } = require('src/common/utils/path')
 const nodeEnv = process.env.NODE_ENV as string
-const rootDir = path.resolve(__dirname, '../../../')
-const baseDir = path.resolve(rootDir, '.build', nodeEnv)
 
 // Alias
 if (['production'].includes(nodeEnv)) {
@@ -20,12 +19,12 @@ if (['production'].includes(nodeEnv)) {
  */
 
 if (nodeEnv === 'development') {
-    dotEnvConfig({ path: path.resolve(__dirname, '../', '../', `.env`) })
+    dotEnvConfig({ path: path.resolve(rootDir, `.env`) })
 }
 
 /* eslint-disable import/first */
-import { mongoConnect } from 'src/utils/mongo/connect'
-import { staticRouter } from 'src/server/routes/static'
+import { mongoConnect } from 'src/common/utils/mongo-connect'
+import { staticRouter } from 'src/common/utils/server-route'
 import { graphqlRouter } from 'src/server/routes/graphql'
 /* eslint-enable import/first */
 

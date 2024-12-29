@@ -1,20 +1,15 @@
-// yarn test environment.spec.ts
+// yarn test path.spec.ts
 
-import path from 'path'
-import { rootDir, publicDir, baseDir, bundles } from './environment'
+const { publicDir, baseDir, bundles } = require('./path')
 
 jest.mock('fs', () => ({
     readFileSync: () =>
         JSON.stringify({ entrypoints: ['static/js/bundle.js'] }),
 }))
 
-describe('environment.ts', () => {
+describe('path.ts', () => {
     afterAll(() => {
         jest.clearAllMocks()
-    })
-
-    it('rootDir', () => {
-        expect(rootDir).toBe(path.resolve(__dirname, '../../'))
     })
 
     it('publicDir', () => {
@@ -26,6 +21,6 @@ describe('environment.ts', () => {
     })
 
     it('bundles', () => {
-        expect(bundles()).toStrictEqual(['static/js/bundle.js'])
+        expect(bundles()).toEqual({ entrypoints: ['static/js/bundle.js'] })
     })
 })

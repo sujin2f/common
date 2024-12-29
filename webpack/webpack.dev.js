@@ -1,4 +1,3 @@
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const commonPaths = require('./paths')
 
 module.exports = {
@@ -13,6 +12,5 @@ module.exports = {
         compress: true,
         hot: true,
     },
-    // plugins: [new ReactRefreshWebpackPlugin()],
     devtool: 'source-map',
 }

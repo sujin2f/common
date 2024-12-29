@@ -4,8 +4,7 @@ import path from 'path'
 import ejs from 'ejs'
 
 import { GlobalVariable } from 'src/types/common'
-import { bundles, publicDir, baseDir } from 'src/utils/environment'
-
+const { bundles, publicDir, baseDir } = require('src/common/utils/path')
 const staticRouter = express.Router()
 
 /**
@@ -52,10 +51,10 @@ export const showReact = async (req: Request, res: Response): Promise<void> => {
         .renderFile(filePath, {
             ...globalVariable,
             js: Object.values(bundleData).filter((value) =>
-                value.endsWith('.js'),
+                (value as string).endsWith('.js'),
             ),
             css: Object.values(bundleData).filter((value) =>
-                value.endsWith('.css'),
+                (value as string).endsWith('.css'),
             ),
         })
         .catch((e) => console.error(e))

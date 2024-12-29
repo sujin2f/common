@@ -8,6 +8,10 @@ import { CloseButton } from 'src/common/components/forms/CloseButton'
 import { Input } from 'src/common/components/forms/Input'
 import { Select } from 'src/common/components/forms/Select'
 
+import Facebook from 'src/common/images/icons/facebook.svg'
+import Twitter from 'src/common/images/icons/twitter.svg'
+import LinkedIn from 'src/common/images/icons/linkedin.svg'
+
 const Form = (): JSX.Element => {
     return (
         <Fragment>
@@ -130,6 +134,17 @@ const Form = (): JSX.Element => {
                         </div>
                         <div>
                             <Button title="Button" hollow />
+                        </div>
+                        <div>
+                            <Button icon>
+                                <Facebook />
+                            </Button>
+                            <Button icon>
+                                <Twitter />
+                            </Button>
+                            <Button icon>
+                                <LinkedIn />
+                            </Button>
                         </div>
                     </form>
                 </Column>

@@ -39,6 +39,14 @@
         width: initial;
         margin-right: 0.5em;
     }
+
+    &[multiple] {
+        padding: 0;
+
+        option {
+            padding: 0.5em;
+        }
+    }
 }
 
 .form__input__error-message {
@@ -124,6 +132,29 @@ fieldset {
             display: block;
             line-height: 0;
             font-size: 2.5em;
+        }
+    }
+
+    &.button--icon {
+        width: 2em;
+        height: 2em;
+        display: flex;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        border: none;
+
+        svg {
+            fill: var(--primary);
+        }
+
+        &:hover,
+        &:focus,
+        &:visited,
+        &:active {
+            svg {
+                fill: color.adjust(variable.$primary, $lightness: -10%);
+            }
         }
     }
 }

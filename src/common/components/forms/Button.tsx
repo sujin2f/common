@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, PropsWithChildren } from 'react'
 import { filterEmpty } from 'src/common/utils/object'
 import { className as getClassName } from 'src/common/utils/string'
 import { MouseEventCallback } from 'src/common/types/react'
@@ -12,7 +12,7 @@ type Props = {
     className?: string
     onClick?: MouseEventCallback
     autoFocus?: boolean
-    icon?: string
+    icon?: boolean
     type?: 'button' | 'submit' | 'reset' | 'file'
     id?: string
     color?: 'primary' | 'secondary' | 'success' | 'alert' | 'warning'
@@ -20,8 +20,8 @@ type Props = {
     to?: string
 }
 
-export const Button = (props: Props): JSX.Element => {
-    const { autoFocus, icon, type, id } = props
+export const Button = (props: PropsWithChildren<Props>): JSX.Element => {
+    const { autoFocus, type, id, children } = props
     const navigate = useNavigate()
 
     const className = useMemo(() => {
@@ -29,8 +29,9 @@ export const Button = (props: Props): JSX.Element => {
         return getClassName(
             'button',
             props.className,
-            `button--${color}`,
+            !props.icon && `button--${color}`,
             props.hollow && 'button--hollow',
+            props.icon && 'button--icon',
         )
     }, [props.className, props.color, props.hollow])
 
@@ -62,10 +63,9 @@ export const Button = (props: Props): JSX.Element => {
         })
     }, [autoFocus, className, onClick, title, type, id])
 
-    return (
-        <button {...buttonProps}>
-            {icon && <Icon icon={icon}></Icon>}
-            {title && title}
-        </button>
-    )
+    if (children) {
+        return <button {...buttonProps}>{children}</button>
+    }
+
+    return <button {...buttonProps}>{title && title}</button>
 }

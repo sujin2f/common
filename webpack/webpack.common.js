@@ -1,6 +1,4 @@
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
@@ -83,16 +81,9 @@ module.exports = {
         }),
     },
     plugins: [
-        // new webpack.ProgressPlugin(),
-        new HtmlWebpackPlugin({
-            template: commonPaths.templatePath,
-        }),
         new WebpackManifestPlugin({
             publicPath: '',
         }),
-        // new ScriptExtHtmlWebpackPlugin({
-        //     defaultAttribute: 'async',
-        // }),
         // new ESLintPlugin({
         //     extensions: ['js', 'jsx', 'ts', 'tsx'],
         //     fix: true,

@@ -1,0 +1,44 @@
+.top-bar {
+    width: 100%;
+    max-width: 100%;
+    height: var(--header-height);
+    margin: 0;
+    position: fixed;
+    display: block;
+    background-color: var(--white);
+    z-index: 10000;
+    top: 0;
+
+    & + main,
+    & + .callout {
+        margin-top: var(--header-height);
+    }
+
+    .column {
+        align-items: stretch;
+        height: var(--header-height);
+    }
+
+    h1 {
+        a {
+            color: var(--gray) !important;
+            text-decoration: none !important;
+            margin-right: 0.5rem;
+            font-size: 2rem;
+        }
+    }
+
+    .menu__container {
+        .menu {
+            a {
+                padding: 0 1em;
+            }
+
+            .menu {
+                a {
+                    padding: 0.6em 1em;
+                }
+            }
+        }
+    }
+}
