@@ -11,14 +11,14 @@ require('src/frontend/scss/top-bar.scss')
 export const TopBar = (): JSX.Element => {
     const left = (
         <Fragment>
-            <Hamburger menu={menuItems} className="show-for-small-only" />
-            <h1 className="hide-for-small-only">
+            <Hamburger menu={menuItems} className="show-for-small" />
+            <h1 className="hide-for-small">
                 <Link to="/">BoilerPlate</Link>
             </h1>
             <Menu
                 items={menuItems}
                 dropdown="hover"
-                className="hide-for-small-only"
+                className="hide-for-small"
             />
         </Fragment>
     )

@@ -16,13 +16,13 @@ type Props = {
 
 export const TopBar = (props: PropsWithChildren<Props>): JSX.Element => {
     const { left, right, fullWidth, children, fixed } = props
-    const className = getClassName('top-bar', props.className, fixed && 'top-bar--fixed')
+    const className = getClassName(
+        'top-bar',
+        props.className,
+        fixed && 'top-bar--fixed',
+    )
     return (
-        <Row
-            className={className}
-            dom="section"
-            fullWidth={fullWidth}
-        >
+        <Row className={className} dom="section" fullWidth={fullWidth}>
             {left && <Column small={6}>{left}</Column>}
             {right && <Column small={6}>{right}</Column>}
             {children}

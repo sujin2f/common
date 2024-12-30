@@ -13,9 +13,9 @@ import { Paging } from 'src/common/components/containers/Paging'
 const Navigation = (): JSX.Element => {
     const topbarLeft = (
         <Fragment>
-            <Hamburger menu={menuItems} className="show-for-small-only" />
-            <h1 className="hide-for-small-only">Logo</h1>
-            <Menu items={menuItems} className="hide-for-small-only" />
+            <Hamburger menu={menuItems} className="show-for-small" />
+            <h1 className="hide-for-small">Logo</h1>
+            <Menu items={menuItems} className="hide-for-small" />
         </Fragment>
     )
 
@@ -41,8 +41,12 @@ const Navigation = (): JSX.Element => {
                         fullWidth={true}
                     />
 
-		    <h2>Paging</h2>
-		    <Paging totalPages={400} urlPrefix="/navigation" currentPage={50} />
+                    <h2>Paging</h2>
+                    <Paging
+                        totalPages={400}
+                        urlPrefix="/navigation"
+                        currentPage={50}
+                    />
                 </Column>
             </Row>
         </Fragment>
