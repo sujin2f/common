@@ -24,7 +24,7 @@ if (nodeEnv === 'development') {
 
 /* eslint-disable import/first */
 import { mongoConnect } from 'src/common/utils/mongo-connect'
-import { staticRouter } from 'src/common/utils/server-route'
+import { staticRouter } from 'src/server/routes/static'
 import { graphqlRouter } from 'src/server/routes/graphql'
 /* eslint-enable import/first */
 

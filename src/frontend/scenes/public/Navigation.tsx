@@ -8,6 +8,7 @@ import { Row } from 'src/common/components/layout/Row'
 import { TopBar } from 'src/common/components/layout/TopBar'
 import { menuItems } from 'src/constants/menu'
 import { ArticleHeader } from 'src/frontend/components/ArticleHeader'
+import { Paging } from 'src/common/components/containers/Paging'
 
 const Navigation = (): JSX.Element => {
     const topbarLeft = (
@@ -39,6 +40,9 @@ const Navigation = (): JSX.Element => {
                         right={<Input type="search" placeholder="Search" />}
                         fullWidth={true}
                     />
+
+		    <h2>Paging</h2>
+		    <Paging totalPages={400} urlPrefix="/navigation" currentPage={50} />
                 </Column>
             </Row>
         </Fragment>
