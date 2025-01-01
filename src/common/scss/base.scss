@@ -21,7 +21,7 @@ html {
 }
 
 body {
-    font-weight: 400;
+    font-weight: 300;
     font-family: var(--font);
     font-size: 1rem;
     line-height: 1.6;
@@ -48,7 +48,7 @@ a,
 }
 
 p {
-    line-height: 1.8;
+    line-height: 1.6;
     margin: 0 0 1em;
 
     &:empty {
@@ -67,6 +67,7 @@ h6 {
     letter-spacing: -0.05em;
     margin: 0;
     padding: 0;
+    line-height: normal;
 
     small {
         color: var(--gray);
@@ -102,6 +103,25 @@ button {
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+ul,
+ol {
+    padding-left: 2em;
+}
+
+code[class],
+code[data-lang] {
+    display: block;
+    background-color: var(--black);
+    color: var(--white);
+    padding: 0.5em;
+}
+
+article img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 .strike_through {
