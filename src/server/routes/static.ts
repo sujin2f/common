@@ -6,6 +6,7 @@ import ejs from 'ejs'
 import { GlobalVariable } from 'src/types/common'
 import {
     publicParam,
+    assetParam,
     GetGlobalVariable,
     showReact,
 } from 'src/common/utils/server-route'
@@ -18,20 +19,7 @@ const staticRouter = express.Router()
  * Public Dir
  */
 staticRouter.get(publicParam[0], publicParam[1])
-
-/**
- * JS
- */
-staticRouter.get('/(*).js', (req, res) => {
-    res.sendFile(`${baseDir}/frontend${req.url}`)
-})
-
-/**
- * Static Dir
- */
-staticRouter.get('/static(/*)', (req, res) => {
-    res.sendFile(`${baseDir}/frontend${req.url}`)
-})
+staticRouter.get(assetParam[0], assetParam[1])
 
 const getGlobalVariable: GetGlobalVariable<GlobalVariable> = async (req) => {
     return {
