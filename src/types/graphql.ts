@@ -1,5 +1,5 @@
 export type GQLParamDummy = {
-    param: string
+    id: string
 }
 
 export interface GQLReturnDummy {

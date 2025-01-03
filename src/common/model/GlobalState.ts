@@ -1,4 +1,4 @@
-import { Fn } from '../types'
+import type { Fn } from '../types'
 import { Multiton } from './Multiton'
 
 /*

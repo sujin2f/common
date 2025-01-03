@@ -3,7 +3,8 @@ import { MenuItem } from 'src/common/types/menu'
 import { className } from 'src/common/utils/string'
 import { Menu } from './Menu'
 import { useDocumentClick } from 'src/common/hooks/useDocumentClick'
-import { useEscapeKey } from 'src/common/hooks/useEscapeKey'
+import { useKeyDown } from 'src/common/hooks/useKeyDown'
+import { KeyCodes } from 'src/common/constants/keycode'
 
 require('src/common/scss/hamburger.scss')
 
@@ -19,7 +20,7 @@ export const Hamburger = (props: Props): JSX.Element => {
         setHidden(!hidden)
     }, [hidden])
     const menuClass = className('menu--hamburger', hidden && 'hide')
-    useEscapeKey(() => setHidden(true))
+    useKeyDown(KeyCodes.ESC, () => setHidden(true))
 
     return (
         <div ref={ref}>

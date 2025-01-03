@@ -4,10 +4,7 @@ const env = require('../src/common/utils/path.ts')
 module.exports = {
     root: path.resolve(env.rootDir),
     outputPath: path.resolve(env.baseDir, 'frontend'),
-    entryPath: path.resolve(env.rootDir, 'src/frontend/index.tsx'),
-    templatePath: path.resolve(env.publicDir, 'index.html'),
-    imagesFolder: 'images',
-    fontsFolder: 'fonts',
-    cssFolder: 'css',
-    jsFolder: 'js',
+    entryPath: {
+        main: path.resolve(env.rootDir, 'src/frontend/index.tsx'),
+    },
 }

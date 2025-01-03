@@ -17,17 +17,17 @@ export const publicParam: [RegExp, (req: Request, res: Response) => void] = [
 ]
 
 export const assetParam: [RegExp, (req: Request, res: Response) => void] = [
-    /\.js|\.map|\.json|\.png|\.svg$/,
+    /\.js|\.map|\.json|\.png|\.svg|\.css$/,
     (req, res) => {
         res.sendFile(`${baseDir}/frontend${req.url}`)
     },
 ]
 
-export type GetGlobalVariable<T> = (req: Request) => Promise<T>
+export type GetTemplateVar<T> = (req: Request) => Promise<T>
 type ShowReac<T> = (
     req: Request,
     res: Response,
-    getGlobalVariable: GetGlobalVariable<T>,
+    getTemplateVar: GetTemplateVar<T>,
 ) => Promise<void>
 
 /**
@@ -37,14 +37,33 @@ type ShowReac<T> = (
 export const showReact = async <T>(
     req: Request,
     res: Response,
-    getGlobalVariable: GetGlobalVariable<T>,
+    getTemplateVar: GetTemplateVar<T>,
 ): Promise<void> => {
-    const filePath = path.resolve(publicDir, 'frontend.ejs')
+    const filePath = path.resolve(publicDir, 'index.ejs')
     const bundleData = bundles()
-    const globalVariable = await getGlobalVariable(req)
+    const vars = {
+        ...(await getTemplateVar(req)),
+        isProd: process.env.NODE_ENV === 'production',
+    }
+    const js = Object.keys(bundleData)
+        .filter((value) => (value as string).endsWith('.js'))
+        .reduce((acc, cur) => {
+            return {
+                ...acc,
+                [cur]: bundleData[cur],
+            }
+        }, {})
+    const css = Object.keys(bundleData)
+        .filter((value) => (value as string).endsWith('.css'))
+        .reduce((acc, cur) => {
+            return {
+                ...acc,
+                [cur]: bundleData[cur],
+            }
+        }, {})
     const html = await ejs
         .renderFile(filePath, {
-            ...globalVariable,
+            ...vars,
             js: Object.values(bundleData).filter((value) =>
                 (value as string).endsWith('.js'),
             ),

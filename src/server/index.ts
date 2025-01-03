@@ -5,7 +5,8 @@ import path from 'path'
 import moduleAlias from 'module-alias'
 import http from 'http'
 
-const { baseDir, rootDir } = require('src/common/utils/path')
+const rootDir = process.cwd()
+const baseDir = path.resolve(rootDir, '.build', process.env.NODE_ENV || '')
 const nodeEnv = process.env.NODE_ENV as string
 
 // Alias

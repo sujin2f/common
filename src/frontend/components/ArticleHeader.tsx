@@ -3,17 +3,13 @@ import { Callout } from 'src/common/components/containers/Callout'
 import { Column } from 'src/common/components/layout/Column'
 import { Row } from 'src/common/components/layout/Row'
 
-require('src/assets/styles/components/article-header.scss')
+require('src/frontend/scss/article-header.scss')
 
 type Props = {
     title: string
     description?: string
 }
 
-/*
- * Callout Component in Foundation Site
- * @ref https://get.foundation/sites/docs/callout.html
- */
 export const ArticleHeader = (props: Props): JSX.Element => {
     const { title, description } = props
 

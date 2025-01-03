@@ -1,12 +1,15 @@
 module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    testMatch: ['<rootDir>/src/common/**/?(*.)+(spec).ts?(x)'],
+    testMatch: [
+        '<rootDir>/src/common/**/?(*.)+(spec).ts?(x)',
+        '<rootDir>/src/constants/**/?(*.)+(spec).ts?(x)',
+    ],
     testPathIgnorePatterns: ['/node_modules/'],
     moduleNameMapper: {
         'src/common/(.*)': '<rootDir>/src/common/$1',
     },
-    collectCoverage: true,
+    collectCoverage: false,
     collectCoverageFrom: [
         '<rootDir>/src/common/**/*.{ts,tsx}',
         '!<rootDir>/src/**/*.spec.{ts,tsx}',

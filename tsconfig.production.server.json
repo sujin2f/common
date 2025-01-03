@@ -7,10 +7,10 @@
         "target": "es2018",
         "module": "commonjs",
         "jsx": "react",
-        "outDir": "./.build/development",
+        "outDir": "./.build/production",
         "removeComments": true,
         "strict": true,
-        "rootDirs": ["src"],
+        "rootDirs": ["src/server"],
         "baseUrl": ".",
         "paths": {
             "src/*": ["src/*"]
@@ -20,5 +20,6 @@
         "forceConsistentCasingInFileNames": true,
         "lib": ["dom", "dom.iterable", "esnext"]
     },
-    "include": ["src/**/*"]
+    "include": ["src/server/**/*", "src/common/utils"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
 }
