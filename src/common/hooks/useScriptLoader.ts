@@ -14,7 +14,10 @@ import { LoadingStatus } from 'src/common/constants/asset'
  * }, [state])
  */
 export const useScriptLoader = (src: string) => {
-    const globalState = GlobalState.getInstance(src, LoadingStatus.INIT)
+    const globalState = GlobalState.getInstance(
+        src,
+        LoadingStatus.INIT,
+    ) as GlobalState<LoadingStatus>
     const [, setState] = useState<LoadingStatus>(globalState.value)
     const state = globalState.value
 

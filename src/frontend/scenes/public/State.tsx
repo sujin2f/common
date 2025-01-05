@@ -11,20 +11,18 @@ import { ArticleHeader } from 'src/frontend/components/ArticleHeader'
 
 const State = () => {
     const [{ dummy }, dispatch] = useStore()
-    useGraphQL()
+    const { data, loading, error } = useGraphQL()
     const { path } = useURL()
 
-    // if (loading) {
-    //     return <div>Loading</div>
-    // }
-
-    // if (error) {
-    //     return <div>Error</div>
-    // }
-
-    const data = {
-        id: 1,
+    if (loading) {
+        return <div>Loading</div>
     }
+
+    if (error) {
+        return <div>Error</div>
+    }
+
+    console.log(data)
 
     return (
         <Fragment>

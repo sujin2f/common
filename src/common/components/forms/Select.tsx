@@ -1,4 +1,4 @@
-import React, { Fragment, ForwardedRef, ChangeEvent, useCallback } from 'react'
+import React, { Fragment, RefObject, ChangeEvent, useCallback } from 'react'
 import { className, generateUUID } from '../../utils/string'
 
 import 'src/common/scss/form.scss'
@@ -16,12 +16,13 @@ type Props = {
     required?: boolean
     helpText?: string
     onChange?: (value: string) => void
+    ref?: RefObject<HTMLSelectElement>
 }
 
 /*
  * HTML Select
  */
-export const Select = (props: Props, ref: ForwardedRef<HTMLSelectElement>) => {
+export const Select = (props: Props) => {
     const {
         label,
         options,
@@ -31,6 +32,7 @@ export const Select = (props: Props, ref: ForwardedRef<HTMLSelectElement>) => {
         disabled,
         required,
         helpText,
+        ref,
     } = props
     const id = props.id || generateUUID()
     const ariaDescribedby = helpText ? `${id}-help-text` : ''

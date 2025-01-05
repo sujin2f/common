@@ -1,4 +1,4 @@
-import { JSX, PropsWithChildren, createElement } from 'react'
+import { PropsWithChildren, createElement } from 'react'
 import { className } from 'src/common/utils/string'
 
 import 'src/common/scss/layout.scss'
@@ -17,7 +17,7 @@ type Props = {
     dom?: string | React.ElementType
 }
 
-export const Column = (props: PropsWithChildren<Props>): JSX.Element => {
+export const Column = (props: PropsWithChildren<Props>) => {
     const small = props.small && `small-${props.small}`
     const medium = props.medium && `medium-${props.medium}`
     const large = props.large && `large-${props.large}`

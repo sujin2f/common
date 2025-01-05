@@ -5,7 +5,7 @@ import { Column } from 'src/common/components/layout/Column'
 import { ArticleHeader } from 'src/frontend/components/ArticleHeader'
 import { Card } from 'src/common/components/containers/Card'
 
-const Grid = (): JSX.Element => {
+const Grid = () => {
     return (
         <Fragment>
             <ArticleHeader title="Grid" description="description" />

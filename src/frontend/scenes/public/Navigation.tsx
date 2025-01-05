@@ -10,7 +10,7 @@ import { menuItems } from 'src/constants/menu'
 import { ArticleHeader } from 'src/frontend/components/ArticleHeader'
 import { Paging } from 'src/common/components/containers/Paging'
 
-const Navigation = (): JSX.Element => {
+const Navigation = () => {
     const topbarLeft = (
         <Fragment>
             <Hamburger menu={menuItems} className="show-for-small" />

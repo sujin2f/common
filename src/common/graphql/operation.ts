@@ -1,9 +1,7 @@
-import { OperationFields, IQuery } from '.'
+import { OperationFields, IQuery, IOperation, OperationArgs } from '.'
 import { Error } from '../model/Error'
 
-type OperationArgs = Record<string, string | number | boolean>
-
-export class Operation {
+export class Operation implements IOperation {
     readonly query: IQuery
     readonly args: OperationArgs
     readonly fields: OperationFields

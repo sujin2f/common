@@ -9,7 +9,7 @@ type Props = {
     fullWidth?: boolean
 }
 
-export const Row = (props: PropsWithChildren<Props>): JSX.Element => {
+export const Row = (props: PropsWithChildren<Props>) => {
     const { className: cls, dom, fullWidth } = props
     const type = dom || 'div'
 

@@ -12,7 +12,7 @@ import Facebook from 'src/common/images/icons/facebook.svg'
 import Twitter from 'src/common/images/icons/twitter.svg'
 import LinkedIn from 'src/common/images/icons/linkedin.svg'
 
-const Form = (): JSX.Element => {
+const Form = () => {
     return (
         <Fragment>
             <ArticleHeader title="Form" description="description" />

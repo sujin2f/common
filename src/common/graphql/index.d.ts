@@ -11,6 +11,8 @@ export type ReturnType<T extends string> = {
 }
 
 export type Fields = Record<string, Argument<string> & ReturnType<string>>
+export type OperationFields = (string | Record<string, OperationFields>)[]
+export type OperationArgs = Record<string, string | number | boolean>
 
 export interface IObjectType<T extends string> {
     readonly name: T
@@ -26,4 +28,9 @@ export interface IQuery {
     toString: () => string
 }
 
-export type OperationFields = (string | Record<string, OperationFields>)[]
+export interface IOperation {
+    readonly query: IQuery
+    readonly args: OperationArgs
+    readonly fields: OperationFields
+    toString: () => string
+}

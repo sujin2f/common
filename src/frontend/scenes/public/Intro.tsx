@@ -4,7 +4,7 @@ import { Row } from 'src/common/components/layout/Row'
 import { Column } from 'src/common/components/layout/Column'
 import { ArticleHeader } from 'src/frontend/components/ArticleHeader'
 
-const Intro = (): JSX.Element => {
+const Intro = () => {
     return (
         <Fragment>
             <ArticleHeader

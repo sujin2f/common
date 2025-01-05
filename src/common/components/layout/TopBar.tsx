@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React, { JSX, PropsWithChildren } from 'react'
 
 import { Row } from './Row'
 import { Column } from './Column'
@@ -14,7 +14,7 @@ type Props = {
     fixed?: boolean
 }
 
-export const TopBar = (props: PropsWithChildren<Props>): JSX.Element => {
+export const TopBar = (props: PropsWithChildren<Props>) => {
     const { left, right, fullWidth, children, fixed } = props
     const className = getClassName(
         'top-bar',

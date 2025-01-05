@@ -10,7 +10,7 @@ const codeBlock = `{
     ...
 }`
 
-const Typography = (): JSX.Element => {
+const Typography = () => {
     return (
         <Fragment>
             <ArticleHeader title="Typography" description="description" />

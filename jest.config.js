@@ -1,15 +1,14 @@
 module.exports = {
     preset: 'ts-jest',
-    testEnvironment: 'node',
-    testMatch: [
-        '<rootDir>/src/common/**/?(*.)+(spec).ts?(x)',
-        '<rootDir>/src/constants/**/?(*.)+(spec).ts?(x)',
-    ],
+    testEnvironment: 'jest-environment-jsdom',
+    testMatch: ['<rootDir>/src/common/**/?(*.)+(spec).ts?(x)'],
     testPathIgnorePatterns: ['/node_modules/'],
     moduleNameMapper: {
+        '\\.(css|scss)$': '<rootDir>/jest/__mocks__/styleMock.js',
+        '\\.svg$': '<rootDir>/jest/__mocks__/styleMock.js',
         'src/common/(.*)': '<rootDir>/src/common/$1',
     },
-    collectCoverage: false,
+    collectCoverage: true,
     collectCoverageFrom: [
         '<rootDir>/src/common/**/*.{ts,tsx}',
         '!<rootDir>/src/**/*.spec.{ts,tsx}',
@@ -26,4 +25,5 @@ module.exports = {
         },
     },
     verbose: true,
+    setupFiles: ['<rootDir>/jest/setup.jest.js'],
 }
