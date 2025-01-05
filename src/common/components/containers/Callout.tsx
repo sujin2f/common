@@ -12,7 +12,7 @@ type Props = {
  * Callout Component in Foundation Site
  * @ref https://get.foundation/sites/docs/callout.html
  */
-export const Callout = (props: PropsWithChildren<Props>): JSX.Element => {
+export const Callout = (props: PropsWithChildren<Props>) => {
     const { onClick } = props
 
     return (

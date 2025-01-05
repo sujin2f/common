@@ -1,38 +1,31 @@
-import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import React, { JSX, PropsWithChildren } from 'react'
 
-import 'src/assets/styles/common/top-bar.scss'
 import { Row } from './Row'
 import { Column } from './Column'
+import { className as getClassName } from 'src/common/utils/string'
+
+import 'src/common/scss/top-bar.scss'
 
 type Props = {
     left?: JSX.Element
     right?: JSX.Element
+    className?: string
+    fullWidth?: boolean
+    fixed?: boolean
 }
 
-export const TopBar = (props: Props): JSX.Element => {
+export const TopBar = (props: PropsWithChildren<Props>) => {
+    const { left, right, fullWidth, children, fixed } = props
+    const className = getClassName(
+        'top-bar',
+        props.className,
+        fixed && 'top-bar--fixed',
+    )
     return (
-        <Fragment>
-            <header className="top-bar">
-                <div className="top-bar__background">
-                    <div className="top-bar__half"></div>
-                    <div className="top-bar__background__logo"></div>
-                    <div className="top-bar__half"></div>
-                </div>
-                <Row>
-                    <Column small={12}>
-                        <div className="top-bar__foreground">
-                            <div className="top-bar__half">{props.left}</div>
-                            <Link
-                                className="top-bar__foreground__logo"
-                                to="/"
-                            />
-                            <div className="top-bar__half">{props.right}</div>
-                        </div>
-                    </Column>
-                </Row>
-            </header>
-            <div className="top-bar__fixed-adjust" />
-        </Fragment>
+        <Row className={className} dom="section" fullWidth={fullWidth}>
+            {left && <Column small={6}>{left}</Column>}
+            {right && <Column small={6}>{right}</Column>}
+            {children}
+        </Row>
     )
 }

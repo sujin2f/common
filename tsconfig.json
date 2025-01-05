@@ -2,7 +2,7 @@
     "ts-node": {
         "files": true
     },
-    "files": ["src/server/index.ts"],
+    "files": ["src/server/index.ts", "src/global.d.ts"],
     "compilerOptions": {
         "target": "es2018",
         "module": "commonjs",
@@ -11,14 +11,15 @@
         "removeComments": true,
         "strict": true,
         "rootDirs": ["src"],
-        "baseUrl": "./",
+        "baseUrl": ".",
         "paths": {
             "src/*": ["src/*"]
         },
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "lib": ["dom", "dom.iterable", "esnext"]
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "sourceMap": true
     },
     "include": ["src/**/*"]
 }

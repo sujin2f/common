@@ -10,7 +10,7 @@ const codeBlock = `{
     ...
 }`
 
-const Typography = (): JSX.Element => {
+const Typography = () => {
     return (
         <Fragment>
             <ArticleHeader title="Typography" description="description" />
@@ -19,21 +19,56 @@ const Typography = (): JSX.Element => {
                     <h1>
                         Heading 1 <small>Small</small>
                     </h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
                     <h2>
                         Heading 2 <small>Small</small>
                     </h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
                     <h3>
                         Heading 3 <small>Small</small>
                     </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
                     <h4>
                         Heading 4 <small>Small</small>
                     </h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
                     <h5>
                         Heading 5 <small>Small</small>
                     </h5>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
                     <h6>
                         Heading 6 <small>Small</small>
                     </h6>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
                     <hr />
 
                     <h1>Typo</h1>

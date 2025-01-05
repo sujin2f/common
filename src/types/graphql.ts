@@ -1,7 +1,9 @@
 export type GQLParamDummy = {
-    param: string
+    id: string
+    name: string
 }
 
-export interface GQLReturnDummy {
-    _id: string
+export type GQLReturnDummy = {
+    id: string
+    name: string
 }

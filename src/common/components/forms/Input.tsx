@@ -4,11 +4,17 @@ import React, {
     KeyboardEvent,
     RefObject,
     useCallback,
+    useMemo,
     useRef,
+    createElement,
 } from 'react'
 import { filterEmpty } from 'src/common/utils/object'
 import { generateUUID } from 'src/common/utils/string'
 import { className as getClassName } from 'src/common/utils/string'
+
+import 'src/common/scss/form.scss'
+import { useKeyDown } from 'src/common/hooks/useKeyDown'
+import { KeyCodes } from 'src/common/constants/keycode'
 
 type Props = {
     label?: string
@@ -27,26 +33,22 @@ type Props = {
         | 'tel'
         | 'time'
         | 'url'
+        | 'search'
+        | 'textarea'
     defaultValue?: string | number
     reference?: RefObject<HTMLInputElement>
     helpText?: string
     required?: boolean
     errorMessage?: string
-    inlineLabel?: string
     list?: string
     onEnterKeyDown?: () => void
     onChange?: ChangeEventHandler<HTMLInputElement>
-    autoFocus?: boolean
     value?: string | number
     placeholder?: string
     name?: string
 }
 
-/*
- * Input Component in Foundation Site
- * @ref https://get.foundation/sites/docs/forms.html#text-inputs
- */
-export const Input = (props: Props): JSX.Element => {
+export const Input = (props: Props) => {
     const {
         label,
         defaultValue,
@@ -54,9 +56,7 @@ export const Input = (props: Props): JSX.Element => {
         helpText,
         required,
         errorMessage,
-        inlineLabel,
         list,
-        autoFocus,
         value,
         onEnterKeyDown,
         onChange,
@@ -65,33 +65,55 @@ export const Input = (props: Props): JSX.Element => {
     } = props
 
     const refComp = useRef<HTMLInputElement>(null)
-    const ref = refProp || refComp
-
-    const id = props.id || generateUUID()
-    const type = props.type || 'text'
-    const ariaDescribedby = helpText ? `${id}-help-text` : ''
-    const labelClassNames = getClassName(
-        'form-label',
-        required && 'form-label--required',
+    const ref = useMemo(() => refProp || refComp, [refProp, refComp])
+    const id = useMemo(() => props.id || generateUUID(), [props.id])
+    const type = useMemo(() => props.type || 'text', [props.type])
+    const ariaDescribedby = useMemo(
+        () => (helpText ? `${id}-help-text` : ''),
+        [helpText, id],
     )
-    const className = getClassName(
-        inlineLabel && 'input-group-field',
-        errorMessage && 'input--error',
+    const labelClassNames = useMemo(
+        () => getClassName('form__label', required && 'form__label--required'),
+        [required],
     )
-    const inputProps = filterEmpty({
-        id,
-        type,
-        defaultValue,
-        ref,
-        'aria-describedby': ariaDescribedby,
-        required,
-        className,
-        list,
-        autoFocus,
-        value,
-        placeholder,
-        name,
-    })
+    const className = useMemo(
+        () =>
+            getClassName(
+                'form__input',
+                errorMessage && 'form__input--error',
+                helpText && 'form__input--with-help-text',
+            ),
+        [errorMessage, helpText],
+    )
+    const inputProps = useMemo(
+        () =>
+            filterEmpty({
+                id,
+                type,
+                defaultValue,
+                ref,
+                'aria-describedby': ariaDescribedby,
+                required,
+                className,
+                list,
+                value,
+                placeholder,
+                name,
+            }),
+        [
+            id,
+            type,
+            defaultValue,
+            ref,
+            ariaDescribedby,
+            required,
+            className,
+            list,
+            value,
+            placeholder,
+            name,
+        ],
+    )
 
     const onKeyDown = useCallback(
         (e: KeyboardEvent<HTMLInputElement>) => {
@@ -102,11 +124,33 @@ export const Input = (props: Props): JSX.Element => {
         [onEnterKeyDown],
     )
 
+    const dom = useMemo(
+        () => (type === 'textarea' ? 'textarea' : 'input'),
+        [type],
+    )
+
+    const Element = useMemo(
+        () =>
+            createElement(
+                dom,
+                {
+                    ...inputProps,
+                    onKeyDown,
+                    onChange,
+                },
+                type === 'textarea' ? value : undefined,
+            ),
+        [dom, inputProps, onKeyDown, onChange, type, value],
+    )
+
     const inputComponent = (
         <Fragment>
-            <input {...inputProps} onKeyDown={onKeyDown} onChange={onChange} />
+            {Element}
+            {errorMessage && (
+                <p className="form__input__error-message">{errorMessage}</p>
+            )}
             {helpText && (
-                <p className="help-text" id={ariaDescribedby}>
+                <p className="form__input__help-text" id={ariaDescribedby}>
                     {helpText}
                 </p>
             )}
@@ -115,44 +159,34 @@ export const Input = (props: Props): JSX.Element => {
     const labelComponent = (
         <Fragment>
             {label && (
-                <label
-                    htmlFor={id}
-                    className={labelClassNames}
-                    onClick={() => {
-                        ref.current?.focus()
-                    }}
-                >
-                    <span className="form-label__text">{label}</span>
-                    {errorMessage && (
-                        <span className="form-label__error">
-                            {errorMessage}
-                        </span>
-                    )}
-                </label>
+                <Fragment>
+                    {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
+                    <label
+                        htmlFor={id}
+                        className={labelClassNames}
+                        onClick={() => {
+                            ref.current?.focus()
+                        }}
+                        onKeyDown={() =>
+                            useKeyDown(KeyCodes.ENTER, () => {
+                                ref.current?.focus()
+                            })
+                        }
+                    >
+                        {(type === 'checkbox' || type === 'radio') &&
+                            inputComponent}
+                        {label}
+                    </label>
+                    {/* eslint-enable jsx-a11y/no-noninteractive-element-interactions */}
+                </Fragment>
             )}
         </Fragment>
     )
 
-    if (inlineLabel) {
-        return (
-            <Fragment>
-                {labelComponent}
-                <div
-                    className="input-group"
-                    onClick={() => {
-                        ref.current?.focus()
-                    }}
-                >
-                    <span className="input-group-label">{inlineLabel}</span>
-                    {inputComponent}
-                </div>
-            </Fragment>
-        )
-    }
     return (
         <Fragment>
             {labelComponent}
-            {inputComponent}
+            {type !== 'checkbox' && type !== 'radio' && inputComponent}
         </Fragment>
     )
 }

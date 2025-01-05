@@ -1,61 +1,37 @@
-/* istanbul ignore file */
-import express, { Response, Request } from 'express'
-import path from 'path'
-import ejs from 'ejs'
+import express from 'express'
 
-import { GlobalVariable } from 'src/types/common'
-import { bundles, publicDir, baseDir } from 'src/utils/environment'
+import type { TemplateVar } from 'src/server/types/template'
+import {
+    publicParam,
+    assetParam,
+    GetTemplateVar,
+    showReact,
+} from 'src/common/utils/server-route'
 
 const staticRouter = express.Router()
 
 /**
  * Public Dir
  */
-staticRouter.get(
-    /robots\.txt|manifest\.json|favicon\.png|favicon-16x16\.png|favicon-32x32\.png|thumbnail\.png|service-worker\.js$/,
-    (req, res) => {
-        const html = `${publicDir}${req.url}`
-        res.sendFile(html)
-    },
-)
+staticRouter.get(publicParam[0], publicParam[1])
+staticRouter.get(assetParam[0], assetParam[1])
 
-/**
- * Static Dir
- */
-staticRouter.get('/static(/*)', (req, res) => {
-    res.sendFile(`${baseDir}/frontend${req.url}`)
-})
-
-const getGlobalVariable = async (req: Request): Promise<GlobalVariable> => {
+const getTemplateVar: GetTemplateVar<TemplateVar> = async () => {
     return {
-        siteName: process.env.TITLE as string,
-        description: process.env.DESCRIPTION as string,
-        url: process.env.PUBLIC_URL as string,
+        title: process.env.TITLE as string,
+        excerpt: process.env.EXCERPT as string,
+        url: process.env.FRONTEND as string,
+        adClient: process.env.GOOGLE_AD_CLIENT as string,
+        adSlot: process.env.GOOGLE_AD_SLOT as string,
+        image: '/thumbnail.png',
     }
-}
-
-/**
- * Show react frontend
- */
-export const showReact = async (req: Request, res: Response): Promise<void> => {
-    const filePath = path.resolve(publicDir, 'frontend.ejs')
-    const bundleData = bundles()
-    const globalVariable = await getGlobalVariable(req)
-    const html = await ejs
-        .renderFile(filePath, {
-            ...globalVariable,
-            js: bundleData.filter((value) => value.endsWith('.js')),
-            css: bundleData.filter((value) => value.endsWith('.css')),
-        })
-        .catch((e) => console.error(e))
-    res.send(html)
 }
 
 /**
  * React frontend
  */
 staticRouter.use((req, res) => {
-    showReact(req, res)
+    showReact(req, res, getTemplateVar)
 })
 
 export { staticRouter }

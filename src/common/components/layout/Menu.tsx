@@ -1,98 +1,157 @@
-import React, { useRef, RefObject, useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { MenuItem as TypeMenuItem } from 'src/common/types/menu'
-import { className, generateUUID } from 'src/common/utils/string'
+import { className } from 'src/common/utils/string'
 
-require('src/assets/styles/common/menu.scss')
+import Arrow from 'src/common/images/icons/arrow_drop_up.svg'
+
+import 'src/common/scss/menu.scss'
+import { useKeyDown } from 'src/common/hooks/useKeyDown'
+import { KeyCodes } from 'src/common/constants/keycode'
 
 type ComponentProps = {
     className?: string
     dropdown?: 'hover' | 'click'
     items: TypeMenuItem[]
-    reference?: RefObject<HTMLUListElement>
+    direction?: 'vertical' | 'horizontal'
+    callback?: () => void
 }
 
 type BlockProps = {
     dropdown?: 'hover' | 'click'
     items: TypeMenuItem[]
-    reference?: RefObject<HTMLUListElement>
+    direction: 'vertical' | 'horizontal'
+    callback?: () => void
 }
 
 type ItemProps = {
     item: TypeMenuItem
     dropdown?: 'hover' | 'click'
+    direction: 'vertical' | 'horizontal'
+    callback?: () => void
 }
 
-const MenuItem = (props: ItemProps): JSX.Element => {
-    const children = useRef<HTMLUListElement>(null)
+const MenuItem = (props: ItemProps) => {
+    const hasChildren = props.item.children && props.item.children.length > 0
+    const [closed, changeClosed] = useState(
+        hasChildren && props.dropdown ? true : false,
+    )
 
     const onMouseOver = useCallback(() => {
         if (props.dropdown === 'hover') {
-            children.current?.classList.add('dropdown--show')
+            changeClosed(false)
         }
     }, [props.dropdown])
 
     const onMouseLeave = useCallback(() => {
         if (props.dropdown === 'hover') {
-            children.current?.classList.remove('dropdown--show')
+            changeClosed(true)
         }
     }, [props.dropdown])
 
     const onClick = useCallback(() => {
         if (props.dropdown === 'click') {
-            if (children.current?.classList.contains('dropdown--show')) {
-                children.current?.classList.remove('dropdown--show')
-            } else {
-                children.current?.classList.add('dropdown--show')
-            }
+            changeClosed(!closed)
         }
-    }, [props.dropdown])
+    }, [props.dropdown, closed])
 
     const linkTo = useMemo(() => {
-        if (props.dropdown === 'click') {
+        if (hasChildren) {
             return ''
         }
         return props.item.link
-    }, [props.dropdown, props.item.link])
+    }, [props.item.link, hasChildren])
 
+    const classNames = useMemo(
+        () =>
+            className(
+                'menu__item',
+                closed && 'menu__item--closed',
+                hasChildren && !closed && 'menu__item--opened',
+                hasChildren && 'menu__item--children',
+            ),
+        [closed, hasChildren],
+    )
+
+    /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
     return (
         <li
-            key={`menu-${props.item.title}-${generateUUID()}`}
             onMouseOver={onMouseOver}
+            onFocus={onMouseOver}
             onMouseLeave={onMouseLeave}
             onClick={onClick}
+            onKeyDown={() =>
+                useKeyDown(KeyCodes.ENTER, () => {
+                    onClick()
+                })
+            }
+            className={classNames}
         >
-            <Link to={linkTo}>{props.item.title}</Link>
+            <Link to={linkTo} onClick={props.callback} className="menu__link">
+                {props.item.title}
+                {props.dropdown && hasChildren && (
+                    <Arrow className="menu__link__arrow" />
+                )}
+            </Link>
 
-            {props.item.children && (
-                <MenuBlock items={props.item.children} reference={children} />
+            {hasChildren && (
+                <MenuBlock
+                    items={props.item.children || []}
+                    direction={props.direction}
+                    callback={props.callback}
+                />
             )}
         </li>
     )
 }
 
-const MenuBlock = (props: BlockProps): JSX.Element => {
+const MenuBlock = (props: BlockProps) => {
     return (
-        <ul
-            className={className('menu', props.dropdown && 'dropdown')}
-            ref={props.reference}
-        >
-            {props.items.map((menu) => (
+        <ul className="menu">
+            {props.items.map((menu, index) => (
                 <MenuItem
-                    key={`menu-${menu.title}-${generateUUID()}`}
+                    key={`menu-${menu.title}-${index}`}
                     item={menu}
                     dropdown={props.dropdown}
+                    direction={props.direction}
+                    callback={props.callback}
                 />
             ))}
         </ul>
     )
 }
 
-export const Menu = (props: ComponentProps): JSX.Element => {
+export const Menu = (props: ComponentProps) => {
+    const direction = useMemo(
+        () => props.direction || 'horizontal',
+        [props.direction],
+    )
+    const cls = useMemo(
+        () =>
+            className(
+                'menu__container',
+                `menu__container--${direction}`,
+                props.className,
+            ),
+        [direction, props.className],
+    )
+    const dropdown = useMemo(
+        () =>
+            direction === 'horizontal' && !props.dropdown
+                ? 'hover'
+                : props.dropdown,
+        [direction, props.dropdown],
+    )
+
     return (
-        <nav className={props.className}>
-            <MenuBlock dropdown={props.dropdown} items={props.items} />
+        <nav className={cls}>
+            <MenuBlock
+                dropdown={dropdown}
+                items={props.items}
+                direction={direction}
+                callback={props.callback}
+            />
         </nav>
     )
 }

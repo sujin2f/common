@@ -1,18 +1,16 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, PropsWithChildren } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import { filterEmpty } from 'src/common/utils/object'
 import { className as getClassName } from 'src/common/utils/string'
 import { MouseEventCallback } from 'src/common/types/react'
-import { Icon } from 'src/common/components/containers/Icon'
-import { useNavigate } from 'react-router-dom'
 
-require('src/assets/styles/common/button.scss')
+import 'src/common/scss/form.scss'
 
 type Props = {
     title?: string | number
     className?: string
     onClick?: MouseEventCallback
-    autoFocus?: boolean
-    icon?: string
     type?: 'button' | 'submit' | 'reset' | 'file'
     id?: string
     color?: 'primary' | 'secondary' | 'success' | 'alert' | 'warning'
@@ -20,12 +18,8 @@ type Props = {
     to?: string
 }
 
-/*
- * Button Component in Foundation Site
- * @ref https://get.foundation/sites/docs/button.html
- */
-export const Button = (props: Props): JSX.Element => {
-    const { autoFocus, icon, type, id } = props
+export const Button = (props: PropsWithChildren<Props>) => {
+    const { type, id, children } = props
     const navigate = useNavigate()
 
     const className = useMemo(() => {
@@ -33,8 +27,8 @@ export const Button = (props: Props): JSX.Element => {
         return getClassName(
             'button',
             props.className,
-            color,
-            props.hollow && 'hollow',
+            `button--${color}`,
+            props.hollow && 'button--hollow',
         )
     }, [props.className, props.color, props.hollow])
 
@@ -59,17 +53,15 @@ export const Button = (props: Props): JSX.Element => {
         return filterEmpty({
             className,
             onClick,
-            autoFocus,
             'aria-label': title,
             type: type ? type : 'button',
             id,
         })
-    }, [autoFocus, className, onClick, title, type, id])
+    }, [className, onClick, title, type, id])
 
-    return (
-        <button {...buttonProps}>
-            {icon && <Icon icon={icon}></Icon>}
-            {title && title}
-        </button>
-    )
+    if (children) {
+        return <button {...buttonProps}>{children}</button>
+    }
+
+    return <button {...buttonProps}>{title && title}</button>
 }

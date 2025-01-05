@@ -8,13 +8,16 @@ import { LoadingStatus } from 'src/common/constants/asset'
  *
  * const state = useScriptLoader('https://cdn.com/javascript.js')
  * useEffect(() => {
- *   if (state === LoadingStatus.COMPLETE) {
+ *   if (state === LoadingStatus.DONE) {
  *     doSomething()
  *   }
  * }, [state])
  */
 export const useScriptLoader = (src: string) => {
-    const globalState = GlobalState.getInstance(src, LoadingStatus.INIT)
+    const globalState = GlobalState.getInstance(
+        src,
+        LoadingStatus.INIT,
+    ) as GlobalState<LoadingStatus>
     const [, setState] = useState<LoadingStatus>(globalState.value)
     const state = globalState.value
 
