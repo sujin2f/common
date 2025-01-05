@@ -1,7 +1,4 @@
-/* istanbul ignore file */
-import express, { Response, Request } from 'express'
-import path from 'path'
-import ejs from 'ejs'
+import express from 'express'
 
 import type { TemplateVar } from 'src/server/types/template'
 import {
@@ -11,8 +8,6 @@ import {
     showReact,
 } from 'src/common/utils/server-route'
 
-const { bundles, publicDir, baseDir } = require('src/common/utils/path')
-
 const staticRouter = express.Router()
 
 /**
@@ -21,7 +16,7 @@ const staticRouter = express.Router()
 staticRouter.get(publicParam[0], publicParam[1])
 staticRouter.get(assetParam[0], assetParam[1])
 
-const getTemplateVar: GetTemplateVar<TemplateVar> = async (req) => {
+const getTemplateVar: GetTemplateVar<TemplateVar> = async () => {
     return {
         title: process.env.TITLE as string,
         excerpt: process.env.EXCERPT as string,

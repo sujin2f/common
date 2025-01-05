@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Response, Request } from 'express'
 import { config as dotEnvConfig } from 'dotenv'
 import compression from 'compression'
 import path from 'path'
@@ -23,11 +23,9 @@ if (nodeEnv === 'development') {
     dotEnvConfig({ path: path.resolve(rootDir, `.env`) })
 }
 
-/* eslint-disable import/first */
 import { mongoConnect } from 'src/common/utils/mongo-connect'
 import { staticRouter } from 'src/server/routes/static'
 import { graphqlRouter } from 'src/server/routes/graphql'
-/* eslint-enable import/first */
 
 // Create a new express application instance
 const app: express.Application = express()
@@ -35,8 +33,7 @@ const server = http.createServer(app)
 const port = process.env.PORT
 
 app.use(compression({ filter: shouldCompress }))
-
-function shouldCompress(req: any, res: any) {
+function shouldCompress(req: Request, res: Response) {
     if (req.headers['x-no-compression']) {
         // don't compress responses with this request header
         return false

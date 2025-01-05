@@ -53,7 +53,6 @@ describe('Select.ts', () => {
                 id="select"
                 defaultValue="option1"
                 label="Label"
-                autoFocus
                 disabled
                 required
                 helpText="helpText"

@@ -1,11 +1,11 @@
-import { PropsWithChildren, createElement } from 'react'
+import { JSX, PropsWithChildren, createElement } from 'react'
 import { className } from 'src/common/utils/string'
 
-require('src/common/scss/layout.scss')
+import 'src/common/scss/layout.scss'
 
 type Props = {
     className?: string
-    dom?: string | JSX.Element
+    dom?: string | JSX.ElementType
     fullWidth?: boolean
 }
 

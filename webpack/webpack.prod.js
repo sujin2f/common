@@ -20,9 +20,6 @@ module.exports = {
             }),
             new OptimizeCSSAssetsPlugin(),
         ],
-        // Automatically split vendor and commons
-        // https://twitter.com/wSokra/status/969633336732905474
-        // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
         splitChunks: {
             chunks: 'all',
 
@@ -46,13 +43,9 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(js|jsx|tsx|ts)$/,
                 loader: 'babel-loader',
                 exclude: /(node_modules)/,
-                options: {
-                    presets: ['@babel/react'],
-                    plugins: [['import', { libraryName: 'antd', style: true }]],
-                },
             },
             {
                 test: /\.(css|scss)$/,
@@ -64,7 +57,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',
-            chunkFilename: '[name][chunkHash].css',
+            chunkFilename: '[name][hash].css',
         }),
     ],
 }

@@ -1,4 +1,4 @@
 export enum KeyCodes {
-    ENTER = 13,
+    ENTER = 'Enter',
     ESC = 'Escape',
 }

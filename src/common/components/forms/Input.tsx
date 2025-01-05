@@ -12,7 +12,9 @@ import { filterEmpty } from 'src/common/utils/object'
 import { generateUUID } from 'src/common/utils/string'
 import { className as getClassName } from 'src/common/utils/string'
 
-require('src/common/scss/form.scss')
+import 'src/common/scss/form.scss'
+import { useKeyDown } from 'src/common/hooks/useKeyDown'
+import { KeyCodes } from 'src/common/constants/keycode'
 
 type Props = {
     label?: string
@@ -41,13 +43,12 @@ type Props = {
     list?: string
     onEnterKeyDown?: () => void
     onChange?: ChangeEventHandler<HTMLInputElement>
-    autoFocus?: boolean
     value?: string | number
     placeholder?: string
     name?: string
 }
 
-export const Input = (props: Props): JSX.Element => {
+export const Input = (props: Props) => {
     const {
         label,
         defaultValue,
@@ -56,7 +57,6 @@ export const Input = (props: Props): JSX.Element => {
         required,
         errorMessage,
         list,
-        autoFocus,
         value,
         onEnterKeyDown,
         onChange,
@@ -96,7 +96,6 @@ export const Input = (props: Props): JSX.Element => {
                 required,
                 className,
                 list,
-                autoFocus,
                 value,
                 placeholder,
                 name,
@@ -110,7 +109,6 @@ export const Input = (props: Props): JSX.Element => {
             required,
             className,
             list,
-            autoFocus,
             value,
             placeholder,
             name,
@@ -162,17 +160,24 @@ export const Input = (props: Props): JSX.Element => {
         <Fragment>
             {label && (
                 <Fragment>
+                    {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
                     <label
                         htmlFor={id}
                         className={labelClassNames}
                         onClick={() => {
                             ref.current?.focus()
                         }}
+                        onKeyDown={() =>
+                            useKeyDown(KeyCodes.ENTER, () => {
+                                ref.current?.focus()
+                            })
+                        }
                     >
                         {(type === 'checkbox' || type === 'radio') &&
                             inputComponent}
                         {label}
                     </label>
+                    {/* eslint-enable jsx-a11y/no-noninteractive-element-interactions */}
                 </Fragment>
             )}
         </Fragment>

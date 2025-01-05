@@ -6,9 +6,9 @@ import { Menu } from 'src/common/components/layout/Menu'
 import { TopBar as TopBarCommon } from 'src/common/components/layout/TopBar'
 import { menuItems } from 'src/constants/menu'
 
-require('src/frontend/scss/top-bar.scss')
+import 'src/frontend/scss/top-bar.scss'
 
-export const TopBar = (): JSX.Element => {
+export const TopBar = () => {
     const left = (
         <Fragment>
             <Hamburger menu={menuItems} className="show-for-small" />

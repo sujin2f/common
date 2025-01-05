@@ -3,6 +3,7 @@ import { Response, Request } from 'express'
 import path from 'path'
 import ejs from 'ejs'
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { bundles, publicDir, baseDir } = require('src/common/utils/path')
 
 /**
@@ -24,11 +25,6 @@ export const assetParam: [RegExp, (req: Request, res: Response) => void] = [
 ]
 
 export type GetTemplateVar<T> = (req: Request) => Promise<T>
-type ShowReac<T> = (
-    req: Request,
-    res: Response,
-    getTemplateVar: GetTemplateVar<T>,
-) => Promise<void>
 
 /**
  * Show react frontend
@@ -45,7 +41,7 @@ export const showReact = async <T>(
         ...(await getTemplateVar(req)),
         isProd: process.env.NODE_ENV === 'production',
     }
-    const js = Object.keys(bundleData)
+    const jsObj = Object.keys(bundleData)
         .filter((value) => (value as string).endsWith('.js'))
         .reduce((acc, cur) => {
             return {
@@ -53,7 +49,7 @@ export const showReact = async <T>(
                 [cur]: bundleData[cur],
             }
         }, {})
-    const css = Object.keys(bundleData)
+    const cssObj = Object.keys(bundleData)
         .filter((value) => (value as string).endsWith('.css'))
         .reduce((acc, cur) => {
             return {
@@ -70,6 +66,8 @@ export const showReact = async <T>(
             css: Object.values(bundleData).filter((value) =>
                 (value as string).endsWith('.css'),
             ),
+            jsObj,
+            cssObj,
         })
         .catch((e) => console.error(e))
     res.send(html)

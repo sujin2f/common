@@ -2,9 +2,9 @@ import React, { Fragment } from 'react'
 import { TopBar } from './TopBar'
 import { Button } from 'src/common/components/forms/Button'
 
-require('src/frontend/scss/front-page.scss')
+import 'src/frontend/scss/front-page.scss'
 
-const FrontPage = (): JSX.Element => {
+const FrontPage = () => {
     return (
         <Fragment>
             <TopBar />

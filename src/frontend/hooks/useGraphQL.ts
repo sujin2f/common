@@ -1,25 +1,39 @@
-import { useQuery, gql } from '@apollo/client'
-import { Error } from 'src/common/model/Error'
+import { useQuery } from '@tanstack/react-query'
+import { Operation } from 'src/common/graphql/operation'
 
-import { requestDummy } from 'src/constants/graphql'
-import { GQLParamDummy, GQLReturnDummy } from 'src/types/graphql'
+// import { useQuery, gql } from '@apollo/client'
+// import { Error } from 'src/common/model/Error'
+
+import { query } from 'src/constants/graphql'
+// import { GQLParamDummy, GQLReturnDummy } from 'src/types/graphql'
 
 export const useGraphQL = () => {
-    const { data, loading, error } = useQuery<
-        { dummy: GQLReturnDummy },
-        GQLParamDummy
-    >(gql(requestDummy), {
-        variables: { param: 'param' },
-        context: { fetchOptions: { method: 'GET' } },
+    const operation = new Operation(query, { id: 'yo', name: 'yo' }, 'id')
+    const result = useQuery({
+        queryKey: ['dummy'],
+        queryFn: () =>
+            fetch('/graphql', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: operation.toString() }),
+            }).then((res) => res.json()),
     })
 
-    if (error?.message) {
-        new Error(error?.message, { level: 'warn' })
-    }
+    console.log(result)
 
-    return {
-        data: data && data.dummy,
-        loading,
-        error,
-    }
+    //     const { data, loading, error } = useQuery<
+    //         { dummy: GQLReturnDummy },
+    //         GQLParamDummy
+    //     >(gql(requestDummy), {
+    //         variables: { id: 'param', name: 'param' },
+    //         context: { fetchOptions: { method: 'GET' } },
+    //     })
+    //     if (error?.message) {
+    //         new Error(error?.message, { level: 'warn' })
+    //     }
+    //     return {
+    //         data: data && data.dummy,
+    //         loading,
+    //         error,
+    //     }
 }

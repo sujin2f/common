@@ -5,11 +5,10 @@ import { State } from 'src/frontend/store/store'
 import { initialState } from 'src/frontend/store/constants'
 
 export const Context = createContext([initialState, null])
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ContextType = [State, any]
 
-export const Store = ({
-    children,
-}: PropsWithChildren<{}>): React.ReactElement => {
+export const Store = ({ children }: PropsWithChildren): React.ReactElement => {
     const [state, dispatch]: ContextType = useReducer(reducer, initialState)
     return (
         <Context.Provider value={[state, dispatch]}>

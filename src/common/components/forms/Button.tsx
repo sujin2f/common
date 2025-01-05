@@ -4,13 +4,12 @@ import { className as getClassName } from 'src/common/utils/string'
 import { MouseEventCallback } from 'src/common/types/react'
 import { useNavigate } from 'react-router-dom'
 
-require('src/common/scss/form.scss')
+import 'src/common/scss/form.scss'
 
 type Props = {
     title?: string | number
     className?: string
     onClick?: MouseEventCallback
-    autoFocus?: boolean
     type?: 'button' | 'submit' | 'reset' | 'file'
     id?: string
     color?: 'primary' | 'secondary' | 'success' | 'alert' | 'warning'
@@ -18,8 +17,8 @@ type Props = {
     to?: string
 }
 
-export const Button = (props: PropsWithChildren<Props>): JSX.Element => {
-    const { autoFocus, type, id, children } = props
+export const Button = (props: PropsWithChildren<Props>) => {
+    const { type, id, children } = props
     const navigate = useNavigate()
 
     const className = useMemo(() => {
@@ -53,12 +52,11 @@ export const Button = (props: PropsWithChildren<Props>): JSX.Element => {
         return filterEmpty({
             className,
             onClick,
-            autoFocus,
             'aria-label': title,
             type: type ? type : 'button',
             id,
         })
-    }, [autoFocus, className, onClick, title, type, id])
+    }, [className, onClick, title, type, id])
 
     if (children) {
         return <button {...buttonProps}>{children}</button>

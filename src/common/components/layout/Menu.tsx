@@ -6,7 +6,9 @@ import { className } from 'src/common/utils/string'
 
 import Arrow from 'src/common/images/icons/arrow_drop_up.svg'
 
-require('src/common/scss/menu.scss')
+import 'src/common/scss/menu.scss'
+import { useKeyDown } from 'src/common/hooks/useKeyDown'
+import { KeyCodes } from 'src/common/constants/keycode'
 
 type ComponentProps = {
     className?: string
@@ -30,7 +32,7 @@ type ItemProps = {
     callback?: () => void
 }
 
-const MenuItem = (props: ItemProps): JSX.Element => {
+const MenuItem = (props: ItemProps) => {
     const hasChildren = props.item.children && props.item.children.length > 0
     const [closed, changeClosed] = useState(
         hasChildren && props.dropdown ? true : false,
@@ -72,11 +74,18 @@ const MenuItem = (props: ItemProps): JSX.Element => {
         [closed, hasChildren],
     )
 
+    /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
     return (
         <li
             onMouseOver={onMouseOver}
+            onFocus={onMouseOver}
             onMouseLeave={onMouseLeave}
             onClick={onClick}
+            onKeyDown={() =>
+                useKeyDown(KeyCodes.ENTER, () => {
+                    onClick()
+                })
+            }
             className={classNames}
         >
             <Link to={linkTo} onClick={props.callback} className="menu__link">
@@ -88,7 +97,7 @@ const MenuItem = (props: ItemProps): JSX.Element => {
 
             {hasChildren && (
                 <MenuBlock
-                    items={props.item.children}
+                    items={props.item.children || []}
                     direction={props.direction}
                     callback={props.callback}
                 />
@@ -97,7 +106,7 @@ const MenuItem = (props: ItemProps): JSX.Element => {
     )
 }
 
-const MenuBlock = (props: BlockProps): JSX.Element => {
+const MenuBlock = (props: BlockProps) => {
     return (
         <ul className="menu">
             {props.items.map((menu, index) => (
@@ -113,7 +122,7 @@ const MenuBlock = (props: BlockProps): JSX.Element => {
     )
 }
 
-export const Menu = (props: ComponentProps): JSX.Element => {
+export const Menu = (props: ComponentProps) => {
     const direction = useMemo(
         () => props.direction || 'horizontal',
         [props.direction],

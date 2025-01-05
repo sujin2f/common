@@ -29,3 +29,5 @@ services:
             - ./:/home/node/app
         working_dir: /home/node/app
         command: yarn prod:server
+        ports:
+            - 80:80

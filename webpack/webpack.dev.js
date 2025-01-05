@@ -7,6 +7,39 @@ module.exports = {
         path: commonPaths.outputPath,
         chunkFilename: '[name].js',
     },
+    module: {
+        rules: [
+            {
+                // Typescript loader
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true,
+                    },
+                },
+            },
+            {
+                // CSS Loader
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                // SCSS (SASS) Loader
+                test: /\.s[ac]ss$/i,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: { api: 'modern' },
+                    },
+                ],
+            },
+        ],
+    },
     devServer: {
         contentBase: commonPaths.outputPath,
         compress: true,

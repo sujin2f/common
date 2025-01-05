@@ -9,17 +9,21 @@ import { Row } from 'src/common/components/layout/Row'
 import { Column } from 'src/common/components/layout/Column'
 import { ArticleHeader } from 'src/frontend/components/ArticleHeader'
 
-const State = (): JSX.Element => {
+const State = () => {
     const [{ dummy }, dispatch] = useStore()
-    const { data, loading, error } = useGraphQL()
+    useGraphQL()
     const { path } = useURL()
 
-    if (loading) {
-        return <div>Loading</div>
-    }
+    // if (loading) {
+    //     return <div>Loading</div>
+    // }
 
-    if (error) {
-        return <div>Error</div>
+    // if (error) {
+    //     return <div>Error</div>
+    // }
+
+    const data = {
+        id: 1,
     }
 
     return (
@@ -35,7 +39,7 @@ const State = (): JSX.Element => {
                         <dd>{path}</dd>
 
                         <dt>graphQL</dt>
-                        <dd>{data && data._id}</dd>
+                        <dd>{data && data.id}</dd>
                     </dl>
                     <Button
                         onClick={() => dispatch(setDummy(!dummy))}

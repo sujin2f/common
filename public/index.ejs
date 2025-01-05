@@ -9,9 +9,9 @@
         <base href="/" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="manifest" href="/manifest.json" />
-        <% css.forEach(function(bundle) { %>
-            <link rel="stylesheet" type="text/css" href="/<%= bundle %>" />
-        <% }); %>
+        <% if (isProd) { %>
+            <link rel="stylesheet" type="text/css" href="/<%= cssObj['main.css'] %>" />
+        <% } %>
         <meta property="og:title" content="<%= title %>" />
         <meta property="og:description" content="<%= excerpt %>" />
         <meta property="og:url" content="<%= url %>" />
@@ -45,8 +45,10 @@
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root" role="main"></div>
-        <% js.forEach(function(bundle) { %>
-            <script src="/<%= bundle %>"></script>
-        <% }); %>
+        <script src="/<%= jsObj['main.js'] %>"></script>
+        <% if (isProd) { %>
+            <script src="/<%= jsObj['runtime.js'] %>"></script>
+            <script src="/<%= jsObj['vendors.js'] %>"></script>
+        <% } %>
     </body>
 </html>
