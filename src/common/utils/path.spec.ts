@@ -1,6 +1,5 @@
 // yarn test path.spec.ts
-
-const component = require('./path.ts')
+import { publicDir, baseDir, bundles } from './path'
 
 jest.mock('fs', () => ({
     readFileSync: () =>
@@ -13,15 +12,15 @@ describe('path.ts', () => {
     })
 
     it('publicDir', () => {
-        expect(component.publicDir.indexOf('public')).not.toBe(-1)
+        expect(publicDir.indexOf('public')).not.toBe(-1)
     })
 
     it('baseDir', () => {
-        expect(component.baseDir.indexOf('.build')).not.toBe(-1)
+        expect(baseDir.indexOf('.build')).not.toBe(-1)
     })
 
     it('bundles', () => {
-        expect(component.bundles()).toEqual({
+        expect(bundles()).toEqual({
             entrypoints: ['static/js/bundle.js'],
         })
     })

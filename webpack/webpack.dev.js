@@ -1,10 +1,10 @@
-const commonPaths = require('./paths')
+import { outputPath } from './paths.js'
 
-module.exports = {
+export default {
     mode: 'development',
     output: {
         filename: '[name].js',
-        path: commonPaths.outputPath,
+        path: outputPath,
         chunkFilename: '[name].js',
     },
     module: {
@@ -41,7 +41,7 @@ module.exports = {
         ],
     },
     devServer: {
-        contentBase: commonPaths.outputPath,
+        contentBase: outputPath,
         compress: true,
         hot: true,
     },

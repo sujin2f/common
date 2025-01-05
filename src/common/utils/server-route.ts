@@ -2,9 +2,7 @@
 import { Response, Request } from 'express'
 import path from 'path'
 import ejs from 'ejs'
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { bundles, publicDir, baseDir } = require('src/common/utils/path')
+import { bundles, publicDir, baseDir } from './path'
 
 /**
  * Public Dir
