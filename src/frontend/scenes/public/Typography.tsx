@@ -1,116 +1,83 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import { Link } from 'react-router-dom'
+import { Callout } from 'src/common/components/containers/Callout'
+import { Code } from 'src/common/components/containers/Code'
 import { Column } from 'src/common/components/layout/Column'
 import { Row } from 'src/common/components/layout/Row'
 import { ArticleHeader } from 'src/frontend/components/ArticleHeader'
+import { sampleText } from 'src/frontend/constants'
 
-const codeBlock = `{
+const Typography = () => {
+    const codeBlock = `{
     "What I am": "I am a big chunk of code. I can have very long lines, I will not break and show a scrollbar instead.",
     ...
 }`
-
-const Typography = () => {
     return (
-        <Fragment>
-            <ArticleHeader title="Typography" description="description" />
-            <Row dom="main">
-                <Column dom="article" small={12} medium={8} mediumOffset={2}>
+        <main>
+            <ArticleHeader title="Typography" description="Base style" />
+            <Row dom="article">
+                <Column small={12}>
+                    <h1>Components</h1>
+
+                    <h2>Callout</h2>
+                    <Callout closeButton>
+                        <h3>This is Callout</h3>
+                        {sampleText}
+                    </Callout>
+
+                    <h2>Code Block</h2>
+                    <Code lang="json">{codeBlock}</Code>
+
                     <h1>
-                        Heading 1 <small>Small</small>
+                        Heading 1 <small>Small</small> {sampleText}
                     </h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
+                    <p>{sampleText}</p>
                     <h2>
-                        Heading 2 <small>Small</small>
+                        Heading 2 <small>Small</small> {sampleText}
                     </h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
+                    <p>{sampleText}</p>
                     <h3>
-                        Heading 3 <small>Small</small>
+                        Heading 3 <small>Small</small> {sampleText}
                     </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
+                    <p>{sampleText}</p>
                     <h4>
-                        Heading 4 <small>Small</small>
+                        Heading 4 <small>Small</small> {sampleText}
                     </h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
+                    <p>{sampleText}</p>
                     <h5>
-                        Heading 5 <small>Small</small>
+                        Heading 5 <small>Small</small> {sampleText}
                     </h5>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
+                    <p>{sampleText}</p>
                     <h6>
-                        Heading 6 <small>Small</small>
+                        Heading 6 <small>Small</small> {sampleText}
                     </h6>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
+                    <p>{sampleText}</p>
+
                     <hr />
 
                     <h1>Typo</h1>
-                    <h2>Lead Text</h2>
-                    <p className="lead">
-                        What are your cats <em>really</em> dreaming about while
-                        they sleep?
-                    </p>
 
                     <h2>Text and Link</h2>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum. <Link to="/link">Link</Link>
+                        {sampleText} <Link to="/link">Link</Link>
                     </p>
 
                     <h2>Abbreviation</h2>
                     <p>
-                        In my dream last night, I saw{' '}
+                        In my dream last night, I saw
                         <abbr title="John Ronald Reuel">J. R. R.</abbr> Tolkien
-                        and George <abbr title="Raymond Richard">R. R.</abbr>{' '}
-                        Martin hanging out on Sunset{' '}
+                        and George <abbr title="Raymond Richard">R. R.</abbr>
+                        Martin hanging out on Sunset
                         <abbr title="Boulevard">Blvd</abbr>.
                     </p>
 
                     <h2>Code</h2>
                     <p>
-                        Remember to escape angle brackets when printing HTML:{' '}
+                        Remember to escape angle brackets when printing HTML:
                         <code>&lt;div&gt;</code>
                     </p>
-                    <p>
-                        <span className="code-inline">
-                            I am not code, but I am displayed as if.
-                        </span>
-                    </p>
-                    <code className="code-block">{codeBlock}</code>
+                    <code data-lang="json">{codeBlock}</code>
                     <p>
                         Press <kbd>Cmd+Q</kbd> (or <kbd>Ctrl+Q</kbd> on Windows)
                         to play Half-Life 3.
@@ -121,15 +88,12 @@ const Typography = () => {
                     <h1>List</h1>
                     <h2>Unordered Lists</h2>
                     <ul>
-                        <li>
-                            List item with a much longer description or more
-                            content.
-                        </li>
+                        <li>{sampleText} </li>
                         <li>List item</li>
                         <li>
                             List item
                             <ul>
-                                <li>Nested list item</li>
+                                <li>{sampleText}</li>
                                 <li>Nested list item</li>
                                 <li>Nested list item</li>
                             </ul>
@@ -137,7 +101,7 @@ const Typography = () => {
                         <li>
                             List item
                             <ul className="no-bullet">
-                                <li>Nested list item</li>
+                                <li>{sampleText}</li>
                                 <li>Nested list item</li>
                                 <li>Nested list item</li>
                             </ul>
@@ -148,12 +112,12 @@ const Typography = () => {
 
                     <h2>Ordered Lists</h2>
                     <ol>
-                        <li>Cheese (essential)</li>
+                        <li>{sampleText}</li>
                         <li>Pepperoni</li>
                         <li>
                             Bacon
                             <ol>
-                                <li>Normal bacon</li>
+                                <li>{sampleText}</li>
                                 <li>Canadian bacon</li>
                             </ol>
                         </li>
@@ -165,31 +129,20 @@ const Typography = () => {
                     <h2>Definition Lists</h2>
                     <dl>
                         <dt>Time</dt>
-                        <dd>
-                            The indefinite continued progress of existence and
-                            events in the past, present, and future regarded as
-                            a whole.
-                        </dd>
+                        <dd>{sampleText}</dd>
                         <dt>Space</dt>
-                        <dd>
-                            A continuous area or expanse that is free,
-                            available, or unoccupied.
-                        </dd>
-                        <dd>
-                            The dimensions of height, depth, and width within
-                            which all things exist and move.
-                        </dd>
+                        <dd>{sampleText}</dd>
+                        <dd>{sampleText}</dd>
                     </dl>
 
                     <h1>Blockquotes</h1>
                     <blockquote>
-                        Those people who think they know everything are a great
-                        annoyance to those of us who do.
+                        {sampleText}
                         <cite>Isaac Asimov</cite>
                     </blockquote>
                 </Column>
             </Row>
-        </Fragment>
+        </main>
     )
 }
 export default Typography

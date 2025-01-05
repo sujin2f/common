@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import { useStore } from 'src/frontend/hooks/useStore'
 import { useGraphQL } from 'src/frontend/hooks/useGraphQL'
@@ -22,13 +22,14 @@ const State = () => {
         return <div>Error</div>
     }
 
-    console.log(data)
-
     return (
-        <Fragment>
-            <ArticleHeader title="States" description="description" />
-            <Row dom="main">
-                <Column dom="article" small={12} medium={8} mediumOffset={2}>
+        <main>
+            <ArticleHeader
+                title="States"
+                description="Supports a global store and GraphQL by default"
+            />
+            <Row dom="article">
+                <Column small={12}>
                     <dl>
                         <dt>store</dt>
                         <dd>{dummy ? 'true' : 'false'}</dd>
@@ -45,7 +46,7 @@ const State = () => {
                     />
                 </Column>
             </Row>
-        </Fragment>
+        </main>
     )
 }
 export default State

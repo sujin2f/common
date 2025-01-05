@@ -6,13 +6,18 @@ import tseslint from 'typescript-eslint'
 export default tseslint.config(
     {
         ...react.configs.flat.recommended,
-        files: ['**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}'],
+        files: ['**/*.{ts,tsx,mtsx}'],
         rules: {
             ...react.configs.flat.recommended.rules,
             'react/jsx-filename-extension': [
                 1,
                 { extensions: ['.jsx', '.tsx'] },
             ],
+        },
+        settings: {
+            react: {
+                version: 'detect',
+            },
         },
     },
     jsxA11y.flatConfigs.recommended,

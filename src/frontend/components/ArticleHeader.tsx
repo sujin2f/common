@@ -14,9 +14,9 @@ export const ArticleHeader = (props: Props) => {
     const { title, description } = props
 
     return (
-        <Callout className="article-header">
+        <Callout className="article-header" dom="header">
             <Row>
-                <Column small={12} medium={8} mediumOffset={2}>
+                <Column small={12}>
                     <h1>{title}</h1>
                     {description && <p>{description}</p>}
                 </Column>

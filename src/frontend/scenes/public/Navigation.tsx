@@ -20,10 +20,10 @@ const Navigation = () => {
     )
 
     return (
-        <Fragment>
+        <main>
             <ArticleHeader title="Navigation" description="description" />
-            <Row dom="main">
-                <Column dom="article" small={12} medium={8} mediumOffset={2}>
+            <Row dom="article">
+                <Column small={12}>
                     <h2>Hamburger Icon</h2>
                     <Hamburger menu={menuItems} />
 
@@ -46,10 +46,11 @@ const Navigation = () => {
                         totalPages={400}
                         urlPrefix="/navigation"
                         currentPage={50}
+                        pageOffset={4}
                     />
                 </Column>
             </Row>
-        </Fragment>
+        </main>
     )
 }
 export default Navigation
