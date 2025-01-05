@@ -8,16 +8,16 @@
         "dev:clean": "rimraf .build/development/*",
         "dev:watch": "concurrently --kill-others-on-fail \"yarn dev:node\" \"yarn dev:react\"",
         "dev:node": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register --respawn ./src/server/index.ts",
-        "dev:react": "NODE_ENV=development webpack --watch",
+        "dev:react": "NODE_ENV=development webpack --watch --config .configs/webpack.config.babel.js",
         "prod": "npm-run-all -s prod:clean prod:tsc prod:webpack",
         "prod:clean": "rimraf .build/production/*",
-        "prod:webpack": "NODE_ENV=production webpack",
-        "prod:tsc": "NODE_ENV=production tsc --project tsconfig.production.server.json",
+        "prod:webpack": "NODE_ENV=production webpack --config .configs/webpack.config.babel.js",
+        "prod:tsc": "NODE_ENV=production tsc --project .configs/tsconfig.production.server.json",
         "prod:server": "NODE_ENV=production node .build/production/server/index.js",
         "prod:analyze": "source-map-explorer '.build/production/frontend/*.js'",
-        "test": "NODE_ENV=development jest",
+        "test": "NODE_ENV=development jest --config=.configs/jest.config.json",
         "lint": "eslint --fix ./src/**/*.ts ./src/**/*.tsx",
-        "pretty": "yarn prettier -w ./src ./public ./webpack ./*.yml ./*.js ./*.json"
+        "pretty": "yarn prettier --config .configs/prettier.json -w ./src ./public .configs ./*.yml ./*.js ./*.json"
     },
     "dependencies": {},
     "devDependencies": {

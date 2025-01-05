@@ -1,25 +1,30 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import { Row } from 'src/common/components/layout/Row'
 import { Column } from 'src/common/components/layout/Column'
 import { ArticleHeader } from 'src/frontend/components/ArticleHeader'
 
+import { Code } from 'src/common/components/containers/Code'
+
 const Intro = () => {
+    const installation = `
+git clone https://github.com/sujin2f/common.git <your-project-directory>
+cd <your-project-directory>
+yarn install`
+
     return (
-        <Fragment>
+        <main>
             <ArticleHeader
                 title="Intro"
                 description="The bootstrap that makes React + Node + MongoDB project."
             />
-            <Row dom="main">
-                <Column dom="article" small={12} medium={8} mediumOffset={2}>
+            <Row dom="article">
+                <Column small={12}>
                     <h2>Installation</h2>
-                    <code className="code-block">{`# git clone https://github.com/sujin2f/common.git <your-project-directory>
-# cd <your-project-directory>
-# yarn install`}</code>
+                    <Code lang="shell">{installation}</Code>
                 </Column>
             </Row>
-        </Fragment>
+        </main>
     )
 }
 export default Intro

@@ -15,6 +15,7 @@ type Props = {
     id?: string
     color?: 'primary' | 'secondary' | 'success' | 'alert' | 'warning'
     hollow?: boolean
+    vanilla?: boolean
     to?: string
 }
 
@@ -29,6 +30,7 @@ export const Button = (props: PropsWithChildren<Props>) => {
             props.className,
             `button--${color}`,
             props.hollow && 'button--hollow',
+            props.vanilla && 'button--vanilla',
         )
     }, [props.className, props.color, props.hollow])
 
