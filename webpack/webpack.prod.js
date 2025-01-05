@@ -1,15 +1,15 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
-const commonPaths = require('./paths')
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import { outputPath } from './paths.js'
 
-module.exports = {
+export default {
     mode: 'production',
     output: {
         publicPath: '/',
         filename: '[name].[hash].js',
-        path: commonPaths.outputPath,
+        path: outputPath,
         chunkFilename: '[name].[chunkhash].js',
     },
     optimization: {

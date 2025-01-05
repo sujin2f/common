@@ -1,10 +1,10 @@
-const ESLintPlugin = require('eslint-webpack-plugin')
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
-const commonPaths = require('./paths')
-const { createWebpackAliases } = require('./helpers')
+import ESLintPlugin from 'eslint-webpack-plugin'
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
+import { entryPath } from './paths.js'
+import { createWebpackAliases } from './helpers.js'
 
-module.exports = {
-    entry: commonPaths.entryPath,
+export default {
+    entry: entryPath,
     module: {
         rules: [
             {
@@ -45,6 +45,7 @@ module.exports = {
         new ESLintPlugin({
             extensions: ['js', 'jsx', 'ts', 'tsx'],
             fix: true,
+            // eslint-disable-next-line no-undef
             emitWarning: process.env.NODE_ENV !== 'production',
             configType: 'flat',
         }),
