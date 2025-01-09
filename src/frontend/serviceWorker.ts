@@ -39,16 +39,7 @@ export const register = (config?: Config) => {
     }
 
     window.addEventListener('load', () => {
-        const swUrl = `${window.frontendVars.FRONTEND}/${window.frontendVars.VERSION}/service-worker.js`
-
-        navigator.serviceWorker.ready
-            .then((registration) => {
-                console.log('registration')
-                console.log(registration)
-            })
-            .catch((error) => {
-                console.error(error.message)
-            })
+        const swUrl = `${window.frontendVars.FRONTEND}/service-worker.js?version=${window.frontendVars.VERSION}`
 
         if (isLocalhost) {
             // This is running on localhost. Let's check if a service worker still exists or not.

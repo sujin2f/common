@@ -1,36 +1,54 @@
-const versionMatch = self.serviceWorker.scriptURL.match(/\/([0-9.]+)\//)
-const version = versionMatch ? versionMatch[1] : undefined
+const executeCacheCallback = (event, callback) => {
+    const version = new URL(location).searchParams.get('version')
+    if (!version) {
+        console.error('Version is not set. Service worker is not registered!')
+    }
 
-if (!version) {
-    console.error('Version is not set. Service worker is not registered!')
-} else {
-    const PRECACHE = 'common-cache-' + version
-    const RUNTIME = 'common-cache-runtime-' + +version
-    const PRE_CACHE_URLS = [
-        '/',
-        `/${version}/main.js`,
-        `/${version}/runtime.js`,
-        `/${version}/vendors.js`,
-        `/${version}/main.css`,
-    ]
+    const manifest = `/${version}/manifest.json`
+    const precache = `common-cache-${version}`
 
-    self.addEventListener('install', (event) => {
+    event.waitUntil(
+        fetch(manifest)
+            .then((response) => response.json())
+            .then((jsonData) => {
+                const urls = Object.values(jsonData)
+                    .filter(
+                        (file) => file.endsWith('.css') || file.endsWith('.js'),
+                    )
+                    .map((file) => `/${version}/${file}`)
+                callback([...urls, '/'], precache)
+            })
+            .catch((e) =>
+                console.error(
+                    `service-worker cannot fetch manifest.json: ${manifest} | ${e.message}`,
+                ),
+            ),
+    )
+}
+
+self.addEventListener('install', (event) => {
+    executeCacheCallback(event, (urls, precache) => {
         event.waitUntil(
             caches
-                .open(PRECACHE)
-                .then((cache) => cache.addAll(PRE_CACHE_URLS))
-                .then(() => self.skipWaiting()),
+                .open(precache)
+                .then((cache) => cache.addAll(urls))
+                .then(() => self.skipWaiting())
+                .catch((e) => console.error(e.message)),
         )
     })
+})
 
-    self.addEventListener('activate', (e) => {
-        const currentCaches = [PRECACHE, RUNTIME]
-        e.waitUntil(
+self.addEventListener('activate', (event) => {
+    executeCacheCallback(event, (urls, precache) => {
+        event.waitUntil(
             caches
                 .keys()
                 .then((cacheNames) => {
                     return cacheNames.filter(
-                        (cacheName) => !currentCaches.includes(cacheName),
+                        (cacheName) =>
+                            ![precache, `${precache}-runtime`].includes(
+                                cacheName,
+                            ),
                     )
                 })
                 .then((cachesToDelete) => {
@@ -43,8 +61,10 @@ if (!version) {
                 .then(() => self.clients.claim()),
         )
     })
+})
 
-    self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', (event) => {
+    executeCacheCallback(event, (urls, precache) => {
         if (event.request.url.startsWith(self.location.origin)) {
             event.respondWith(
                 (async () => {
@@ -62,19 +82,23 @@ if (!version) {
                         return await fetch(request)
                     }
 
-                    return await caches.open(RUNTIME).then(async (cache) => {
-                        return await fetch(request).then(async (response) => {
-                            if (!response || response.status !== 200) {
-                                return response
-                            }
+                    return await caches
+                        .open(`${precache}-runtime`)
+                        .then(async (cache) => {
+                            return await fetch(request).then(
+                                async (response) => {
+                                    if (!response || response.status !== 200) {
+                                        return response
+                                    }
 
-                            return await cache
-                                .put(event.request, response.clone())
-                                .then(() => response)
+                                    return await cache
+                                        .put(event.request, response.clone())
+                                        .then(() => response)
+                                },
+                            )
                         })
-                    })
                 })(),
             )
         }
     })
-}
+})

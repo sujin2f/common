@@ -2,6 +2,7 @@ import {
     GraphQLObjectType,
     GraphQLString,
 } from 'src/common/graphql/object-type'
+import { Operation } from 'src/common/graphql/operation'
 import { GraphQLQueries, GraphQLQuery } from 'src/common/graphql/query-type'
 import { getSchema } from 'src/common/graphql/schema'
 
@@ -29,4 +30,5 @@ export const query = new GraphQLQuery({
     },
 })
 const queries = new GraphQLQueries(query)
+export const operation = new Operation(query, 'id')
 export const graphqlSchema = getSchema(queries, dummy)

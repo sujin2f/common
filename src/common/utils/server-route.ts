@@ -2,29 +2,36 @@
 import { Response, Request } from 'express'
 import path from 'path'
 import ejs from 'ejs'
-import { bundles, publicDir, baseDir } from './path'
+import { bundles, publicDir, baseDir, isDev } from './path'
 
 /**
  * Public Dir
  */
-export const publicParam: [RegExp, (req: Request, res: Response) => void] = [
-    /(robots\.txt|favicon\.png|favicon-16x16\.png|favicon-32x32\.png|thumbnail\.png|service-worker\.js)$/,
+export const publicParam: [
+    RegExp | RegExp[],
+    (req: Request, res: Response) => void,
+] = [
+    [
+        /(robots\.txt|favicon\.png|favicon-16x16\.png|favicon-32x32\.png|thumbnail\.png)$/,
+        /service-worker\.js/,
+    ],
     (req, res) => {
-        let filePath = `${publicDir}${req.path}`
-        filePath = process.env.VERSION
-            ? filePath.replace(`${process.env.VERSION}/`, '')
-            : filePath
-        res.sendFile(filePath)
+        const url = new URL(`http://dummy.com${req.path}`)
+        res.sendFile(path.join(publicDir, url.pathname))
     },
 ]
 
 export const assetParam: [RegExp, (req: Request, res: Response) => void] = [
     /\.js|\.map|\.json|\.png|\.svg|\.css$/,
     (req, res) => {
-        const url = process.env.VERSION
-            ? req.url.replace(`${process.env.VERSION}/`, '')
-            : req.url
-        res.sendFile(`${baseDir}/frontend${url}`)
+        if (isDev) {
+            const matched = req.url.match(/\/[0-9.]+\/(.+)/)
+            const url = matched ? `/${matched[1]}` : req.url
+            res.sendFile(`${baseDir}/frontend${url}`)
+            return
+        }
+
+        res.sendFile(`${baseDir}/frontend${req.url}`)
     },
 ]
 

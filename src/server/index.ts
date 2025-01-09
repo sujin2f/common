@@ -20,7 +20,7 @@ if (['production'].includes(nodeEnv)) {
  * .env
  */
 if (nodeEnv === 'development') {
-    dotEnvConfig({ path: path.resolve(rootDir, `.env`) })
+    dotEnvConfig({ path: path.resolve(rootDir, '.env') })
 }
 
 import { mongoConnect } from 'src/common/utils/mongo-connect'
