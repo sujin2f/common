@@ -2,13 +2,23 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import path from 'path'
+import { config as dotEnvConfig } from 'dotenv'
+
 import { outputPath } from './paths.js'
+
+const rootDir = process.cwd()
+dotEnvConfig({ path: path.resolve(rootDir, `.env`) })
+
+if (!process.env.VERSION) {
+    throw Error('Please add VERSION to your .env file')
+}
 
 export default {
     mode: 'production',
     output: {
-        publicPath: '/',
-        filename: '[name].[hash].js',
+        publicPath: `/${process.env.VERSION}/`,
+        filename: '[name].js',
         path: outputPath,
         chunkFilename: '[name].[chunkhash].js',
     },

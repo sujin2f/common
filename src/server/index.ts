@@ -19,7 +19,6 @@ if (['production'].includes(nodeEnv)) {
 /**
  * .env
  */
-
 if (nodeEnv === 'development') {
     dotEnvConfig({ path: path.resolve(rootDir, `.env`) })
 }
@@ -44,18 +43,18 @@ function shouldCompress(req: Request, res: Response) {
     return compression.filter(req, res)
 }
 
-app.use(
-    session({
-        secret: process.env.SERVER_SECRET || 'secret',
-        resave: false,
-        saveUninitialized: true,
-        cookie: {
-            secure: process.env.NODE_ENV === 'production', // use secure cookies in production
-            httpOnly: true, // prevent client-side access to the cookie
-            sameSite: 'strict', // enforce same-site cookie policy
-        },
-    }),
-)
+// app.use(
+//     session({
+//         secret: process.env.SERVER_SECRET || 'secret',
+//         resave: false,
+//         saveUninitialized: true,
+//         cookie: {
+//             secure: process.env.NODE_ENV === 'production', // use secure cookies in production
+//             httpOnly: true, // prevent client-side access to the cookie
+//             sameSite: 'strict', // enforce same-site cookie policy
+//         },
+//     }),
+// )
 
 app.use(`/graphql/${process.env.VERSION}`, graphqlRouter)
 app.use('/', staticRouter)

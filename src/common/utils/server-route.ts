@@ -7,21 +7,24 @@ import { bundles, publicDir, baseDir } from './path'
 /**
  * Public Dir
  */
-export const publicParam: [RegExp[], (req: Request, res: Response) => void] = [
-    [
-        /(robots\.txt|favicon\.png|favicon-16x16\.png|favicon-32x32\.png|thumbnail\.png)$/,
-        /service-worker\.js/,
-    ],
+export const publicParam: [RegExp, (req: Request, res: Response) => void] = [
+    /(robots\.txt|favicon\.png|favicon-16x16\.png|favicon-32x32\.png|thumbnail\.png|service-worker\.js)$/,
     (req, res) => {
-        const html = `${publicDir}${req.path}`
-        res.sendFile(html)
+        let filePath = `${publicDir}${req.path}`
+        filePath = process.env.VERSION
+            ? filePath.replace(`${process.env.VERSION}/`, '')
+            : filePath
+        res.sendFile(filePath)
     },
 ]
 
 export const assetParam: [RegExp, (req: Request, res: Response) => void] = [
     /\.js|\.map|\.json|\.png|\.svg|\.css$/,
     (req, res) => {
-        res.sendFile(`${baseDir}/frontend${req.url}`)
+        const url = process.env.VERSION
+            ? req.url.replace(`${process.env.VERSION}/`, '')
+            : req.url
+        res.sendFile(`${baseDir}/frontend${url}`)
     },
 ]
 
