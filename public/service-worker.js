@@ -1,5 +1,5 @@
-const PRECACHE = 'common-cache-v2'
-const RUNTIME = 'common-cache-runtime-v2'
+const PRECACHE = 'common-cache-' + self.serviceWorker.scriptURL
+const RUNTIME = 'common-cache-runtime-' + +self.serviceWorker.scriptURL
 const PRE_CACHE_URLS = ['index.html', './']
 
 self.addEventListener('install', (event) => {

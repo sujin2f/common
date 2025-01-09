@@ -1,16 +1,18 @@
 import { Scalar } from './constants'
 
 export type Argument<T extends Scalar> = {
-    type: IObjectType<T>
+    type: IObjectType<T> | 'self'
     required?: boolean
 }
 
 export type ReturnType<T extends string> = {
-    type: IObjectType<T>
+    type: IObjectType<T> | 'self'
     list?: boolean
 }
 
-export type Fields = Record<string, Argument<string> & ReturnType<string>>
+export type Field = Argument<string> & ReturnType<string>
+
+export type Fields = Record<string, Field>
 export type OperationFields = (string | Record<string, OperationFields>)[]
 export type OperationArgs = Record<string, string | number | boolean>
 
@@ -28,9 +30,12 @@ export interface IQuery {
     toString: () => string
 }
 
-export interface IOperation {
+export interface IOperation<T> {
     readonly query: IQuery
-    readonly args: OperationArgs
     readonly fields: OperationFields
-    toString: () => string
+    toString: (args: T) => string
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type GetOperationArgsType<C extends IOperation<any>> =
+    C extends IOperation<infer T> ? T : unknown

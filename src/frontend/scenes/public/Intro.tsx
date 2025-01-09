@@ -7,8 +7,7 @@ import { ArticleHeader } from 'src/frontend/components/ArticleHeader'
 import { Code } from 'src/common/components/containers/Code'
 
 const Intro = () => {
-    const installation = `
-git clone https://github.com/sujin2f/common.git <your-project-directory>
+    const installation = `git clone https://github.com/sujin2f/common.git <your-project-directory>
 cd <your-project-directory>
 yarn install`
 
@@ -21,7 +20,7 @@ yarn install`
             <Row dom="article">
                 <Column small={12}>
                     <h2>Installation</h2>
-                    <Code lang="shell">{installation}</Code>
+                    <Code lang="bash">{installation}</Code>
                 </Column>
             </Row>
         </main>

@@ -1,4 +1,4 @@
-import { Argument } from '.'
+import type { Argument, IObjectType } from '.'
 import { Scalar } from './constants'
 
 export const returnTypeToString = (
@@ -11,7 +11,7 @@ export const argumentsToString = (args: Record<string, Argument<Scalar>>) => {
     const str = Object.entries(args)
         .map(
             ([key, value]) =>
-                `${key}: ${returnTypeToString(value.type.name, false, value.required)}`,
+                `${key}: ${returnTypeToString((value.type as IObjectType<string>).name, false, value.required)}`,
         )
         .join(', ')
     return str ? `(${str})` : ''

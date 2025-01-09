@@ -4,12 +4,12 @@ import { className } from 'src/common/utils/string'
 import 'src/common/scss/layout.scss'
 
 type Props = {
-    className?: string
-    dom?: string | JSX.ElementType
-    fullWidth?: boolean
+    readonly className?: string
+    readonly dom?: string | JSX.ElementType
+    readonly fullWidth?: boolean
 }
 
-export const Row = (props: PropsWithChildren<Props>) => {
+export function Row(props: PropsWithChildren<Props>) {
     const { className: cls, dom, fullWidth } = props
     const type = dom || 'div'
 

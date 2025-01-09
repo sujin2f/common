@@ -4,6 +4,7 @@ export type State = {
     dummy: boolean
 }
 
-export type Action = State & {
+export type Action = Partial<State> & {
     type: ActionType
+    version: string
 }
