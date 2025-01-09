@@ -1,6 +1,7 @@
-import { Argument, IQuery, ReturnType } from '.'
+import type { Argument, IQuery, ReturnType } from '.'
 import { Scalar } from './constants'
 import { argumentsToString, returnTypeToString } from './util'
+import { Error } from '../model/Error'
 
 type Props = {
     name: string
@@ -20,11 +21,13 @@ export class GraphQLQuery implements IQuery {
     }
 
     toString() {
-        const {
-            type: { name },
-            list,
-        } = this.return
-        return `${this.name}${argumentsToString(this.arguments)}: ${returnTypeToString(name, list)}`
+        const { type, list } = this.return
+
+        if (type === 'self') {
+            throw new Error(`Query return type should not be self.`)
+        }
+
+        return `${this.name}${argumentsToString(this.arguments)}: ${returnTypeToString(type.name, list)}`
     }
 }
 

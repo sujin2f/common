@@ -13,13 +13,11 @@ import { generateUUID } from 'src/common/utils/string'
 import { className as getClassName } from 'src/common/utils/string'
 
 import 'src/common/scss/form.scss'
-import { useKeyDown } from 'src/common/hooks/useKeyDown'
-import { KeyCodes } from 'src/common/constants/keycode'
 
 type Props = {
-    label?: string
-    id?: string
-    type?:
+    readonly label?: string
+    readonly id?: string
+    readonly type?:
         | 'text'
         | 'number'
         | 'checkbox'
@@ -35,20 +33,20 @@ type Props = {
         | 'url'
         | 'search'
         | 'textarea'
-    defaultValue?: string | number
-    reference?: RefObject<HTMLInputElement>
-    helpText?: string
-    required?: boolean
-    errorMessage?: string
-    list?: string
-    onEnterKeyDown?: () => void
-    onChange?: ChangeEventHandler<HTMLInputElement>
-    value?: string | number
-    placeholder?: string
-    name?: string
+    readonly defaultValue?: string | number
+    readonly reference?: RefObject<HTMLInputElement>
+    readonly helpText?: string
+    readonly required?: boolean
+    readonly errorMessage?: string
+    readonly list?: string
+    readonly onEnterKeyDown?: () => void
+    readonly onChange?: ChangeEventHandler<HTMLInputElement>
+    readonly value?: string | number
+    readonly placeholder?: string
+    readonly name?: string
 }
 
-export const Input = (props: Props) => {
+export function Input(props: Props) {
     const {
         label,
         defaultValue,
@@ -146,46 +144,41 @@ export const Input = (props: Props) => {
     const inputComponent = (
         <Fragment>
             {Element}
-            {errorMessage && (
+
+            {errorMessage ? (
                 <p className="form__input__error-message">{errorMessage}</p>
-            )}
-            {helpText && (
+            ) : null}
+
+            {helpText ? (
                 <p className="form__input__help-text" id={ariaDescribedby}>
                     {helpText}
                 </p>
-            )}
+            ) : null}
         </Fragment>
     )
     const labelComponent = (
         <Fragment>
-            {label && (
-                <Fragment>
-                    {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
-                    <label
-                        htmlFor={id}
-                        className={labelClassNames}
-                        onClick={() => {
-                            ref.current?.focus()
-                        }}
-                        onKeyDown={() =>
-                            useKeyDown(KeyCodes.ENTER, () => {
-                                ref.current?.focus()
-                            })
-                        }
-                    >
-                        {(type === 'checkbox' || type === 'radio') &&
-                            inputComponent}
-                        {label}
-                    </label>
-                    {/* eslint-enable jsx-a11y/no-noninteractive-element-interactions */}
-                </Fragment>
-            )}
+            {label ? (
+                <label
+                    className={labelClassNames}
+                    htmlFor={id}
+                    onClick={() => {
+                        ref.current?.focus()
+                    }}
+                >
+                    {(type === 'checkbox' || type === 'radio') &&
+                        inputComponent}
+
+                    {label}
+                </label>
+            ) : null}
         </Fragment>
     )
 
     return (
         <Fragment>
             {labelComponent}
+
             {type !== 'checkbox' && type !== 'radio' && inputComponent}
         </Fragment>
     )

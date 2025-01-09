@@ -1,6 +1,5 @@
 import express from 'express'
 
-import type { TemplateVar } from 'src/server/types/template'
 import {
     publicParam,
     assetParam,
@@ -18,12 +17,17 @@ staticRouter.get(assetParam[0], assetParam[1])
 
 const getTemplateVar: GetTemplateVar<TemplateVar> = async () => {
     return {
-        title: process.env.TITLE as string,
-        excerpt: process.env.EXCERPT as string,
-        url: process.env.FRONTEND as string,
-        adClient: process.env.GOOGLE_AD_CLIENT as string,
-        adSlot: process.env.GOOGLE_AD_SLOT as string,
-        image: '/thumbnail.png',
+        SITE_NAME: process.env.TITLE || '',
+        TITLE: process.env.TITLE || '',
+        DESCRIPTION: process.env.EXCERPT || '',
+        EXCERPT: process.env.EXCERPT || '',
+        IMAGE: './thumbnail.png',
+        URL: process.env.FRONTEND || '',
+        FRONTEND: process.env.FRONTEND || '',
+        GOOGLE_AD_CLIENT: process.env.GOOGLE_AD_CLIENT || '',
+        GOOGLE_AD_SLOT: process.env.GOOGLE_AD_SLOT || '',
+        IS_PRODUCTION: process.env.NODE_ENV === 'production',
+        VERSION: process.env.VERSION || '1.0.0',
     }
 }
 

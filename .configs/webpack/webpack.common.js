@@ -1,3 +1,4 @@
+import webpack from 'webpack'
 import ESLintPlugin from 'eslint-webpack-plugin'
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
 import { entryPath } from './paths.js'
@@ -45,8 +46,6 @@ export default {
         new ESLintPlugin({
             extensions: ['js', 'jsx', 'ts', 'tsx'],
             fix: true,
-            // eslint-disable-next-line no-undef
-            emitWarning: process.env.NODE_ENV !== 'production',
             configType: 'flat',
         }),
     ],

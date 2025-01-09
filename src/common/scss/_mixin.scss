@@ -1,11 +1,19 @@
+@use 'variable';
+
 @mixin medium {
-    @media print, screen and (min-width: 40em) {
+    @media print, screen and (min-width: variable.$medium) {
         @content;
     }
 }
 
 @mixin large {
-    @media print, screen and (min-width: 64em) {
+    @media print, screen and (min-width: variable.$large) {
+        @content;
+    }
+}
+
+@mixin extra-large {
+    @media print, screen and (min-width: variable.$extra-large) {
         @content;
     }
 }
@@ -15,5 +23,14 @@
     &:focus,
     &:active {
         @content;
+    }
+}
+
+@function headings($before: '', $from: 1, $to: 6, $after: '') {
+    @if $from == $to {
+        @return '#{$before} h#{$from}#{$after}';
+    } @else {
+        @return '#{$before} h#{$from}#{$after}, ' +
+            headings($before, $from + 1, $to, $after);
     }
 }

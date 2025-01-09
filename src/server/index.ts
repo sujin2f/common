@@ -1,4 +1,5 @@
 import express, { Response, Request } from 'express'
+import session from 'express-session'
 import { config as dotEnvConfig } from 'dotenv'
 import compression from 'compression'
 import path from 'path'
@@ -43,7 +44,20 @@ function shouldCompress(req: Request, res: Response) {
     return compression.filter(req, res)
 }
 
-app.use('/graphql', graphqlRouter)
+app.use(
+    session({
+        secret: process.env.SERVER_SECRET || 'secret',
+        resave: false,
+        saveUninitialized: true,
+        cookie: {
+            secure: process.env.NODE_ENV === 'production', // use secure cookies in production
+            httpOnly: true, // prevent client-side access to the cookie
+            sameSite: 'strict', // enforce same-site cookie policy
+        },
+    }),
+)
+
+app.use(`/graphql/${process.env.VERSION}`, graphqlRouter)
 app.use('/', staticRouter)
 
 // Go!

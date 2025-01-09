@@ -19,6 +19,7 @@ describe('operation.ts', () => {
         fields: {
             id: { type: GraphQLString, required: true },
             author: { type: User },
+            author2: { type: User },
         },
     })
 
@@ -35,12 +36,14 @@ describe('operation.ts', () => {
         },
     })
 
-    const operation = new Operation(query, { id: 'name' }, 'id', {
+    const operation = new Operation(query, 'id', {
         author: ['id', 'name', 'email'],
+        author2: ['id', 'name', 'email'],
     })
 
     it.only('toOperation()', () => {
-        const result = operation.toString()
+        const result = operation.toString({ id: 'name' })
+        console.log(result)
         expect(result.includes('post(id: "name") {')).toBeTruthy()
     })
 })

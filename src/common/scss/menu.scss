@@ -30,6 +30,8 @@
 }
 
 .menu__link__arrow {
+    width: 24px;
+    height: 24px;
     fill: var(--gray);
 }
 
@@ -67,7 +69,7 @@
             position: static;
 
             .menu__link {
-                padding-left: 1em;
+                padding-left: var(--gap);
             }
         }
     }

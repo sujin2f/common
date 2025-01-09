@@ -1,4 +1,4 @@
-import { Fields, OperationFields, IObjectType } from '.'
+import type { Fields, OperationFields, IObjectType, Field } from '.'
 import { Scalar } from './constants'
 import { returnTypeToString } from './util'
 import { Error } from '../model/Error'
@@ -21,14 +21,15 @@ export class GraphQLObjectType<T extends string> implements IObjectType<T> {
         this.fields = props.fields || {}
     }
 
+    addField(key: string, field: Field) {
+        this.fields[key] = field
+    }
+
     toString() {
         const fields = Object.entries(this.fields)
             .map(([field, value]) => {
-                const {
-                    type: { name },
-                    required,
-                    list,
-                } = value
+                const { type, required, list } = value
+                const name = type === 'self' ? this.name : type.name
                 return `${field}: ${returnTypeToString(name, list, required)}`
             })
             .join('\n')
@@ -62,8 +63,16 @@ export class GraphQLObjectType<T extends string> implements IObjectType<T> {
                 if (typeof field === 'string') {
                     return field
                 }
-                const [key, subFields] = Object.entries(field)[0]
-                return `${key} ${this.fields[key].type.toOperation(...subFields)}`
+
+                return Object.entries(field)
+                    .map(([key, subFields]) => {
+                        const type =
+                            this.fields[key].type === 'self'
+                                ? this
+                                : this.fields[key].type
+                        return `${key} ${type.toOperation(...subFields)}`
+                    })
+                    .join('\n')
             })
             .join('\n')
 
