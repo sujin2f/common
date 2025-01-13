@@ -1,5 +1,5 @@
-import { merge } from 'webpack-merge'
-import common from './webpack/webpack.common.js'
+const merge = require('webpack-merge').default
+const common = require('./webpack/webpack.common.js')
 
 const envs = {
     development: 'dev',
@@ -8,6 +8,6 @@ const envs = {
 // eslint-disable-next-line no-undef
 const env = envs[process.env.NODE_ENV || 'development']
 // eslint-disable-next-line @typescript-eslint/no-require-imports, no-undef
-const envConfig = require(`./webpack/webpack.${env}.js`).default
+const envConfig = require(`./webpack/webpack.${env}.js`)
 
-export default merge(common, envConfig)
+module.exports = merge(common, envConfig)

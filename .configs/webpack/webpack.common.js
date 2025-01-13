@@ -1,10 +1,10 @@
-import webpack from 'webpack'
-import ESLintPlugin from 'eslint-webpack-plugin'
-import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
-import { entryPath } from './paths.js'
-import { createWebpackAliases } from './helpers.js'
+const ESLintPlugin = require('eslint-webpack-plugin')
+const WebpackManifestPlugin =
+    require('webpack-manifest-plugin').WebpackManifestPlugin
+const entryPath = require('./paths.js').entryPath
+const createWebpackAliases = require('./helpers.js').createWebpackAliases
 
-export default {
+module.exports = {
     entry: entryPath,
     module: {
         rules: [
@@ -44,7 +44,7 @@ export default {
             publicPath: '',
         }),
         new ESLintPlugin({
-            extensions: ['js', 'jsx', 'ts', 'tsx'],
+            extensions: ['ts', 'tsx'],
             fix: true,
             configType: 'flat',
         }),

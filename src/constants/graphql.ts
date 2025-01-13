@@ -1,34 +1,28 @@
-import {
-    GraphQLObjectType,
-    GraphQLString,
-} from 'src/common/graphql/object-type'
-import { Operation } from 'src/common/graphql/operation'
-import { GraphQLQueries, GraphQLQuery } from 'src/common/graphql/query-type'
-import { getSchema } from 'src/common/graphql/schema'
+import { GQLQuery } from 'src/common/graphql/query'
+import { GQLString, GQLType } from 'src/common/graphql/type'
 
-const dummy = new GraphQLObjectType({
-    name: 'Dummy',
-    fields: {
-        id: { type: GraphQLString, required: true },
-        name: { type: GraphQLString, required: true },
-    },
+type DummyType = {
+    id: string
+    name: string
+}
+
+export const Dummy = new GQLType<DummyType>('Dummy', {
+    id: { type: GQLString, required: true },
+    name: { type: GQLString, required: true },
 })
-export const query = new GraphQLQuery({
-    name: 'dummy',
-    arguments: {
+export const queryDummy = new GQLQuery<[string, string], DummyType>(
+    'dummy',
+    {
         id: {
-            type: GraphQLString,
+            type: GQLString,
             required: true,
         },
         name: {
-            type: GraphQLString,
+            type: GQLString,
             required: true,
         },
     },
-    return: {
-        type: dummy,
+    {
+        type: Dummy,
     },
-})
-const queries = new GraphQLQueries(query)
-export const operation = new Operation(query, 'id')
-export const graphqlSchema = getSchema(queries, dummy)
+)

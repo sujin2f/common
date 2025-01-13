@@ -1,6 +1,6 @@
-import { outputPath } from './paths.js'
+const outputPath = require('./paths.js').outputPath
 
-export default {
+module.exports = {
     mode: 'development',
     output: {
         filename: '[name].js',

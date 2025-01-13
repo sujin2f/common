@@ -1,5 +1,4 @@
 import express, { Response, Request } from 'express'
-import session from 'express-session'
 import { config as dotEnvConfig } from 'dotenv'
 import compression from 'compression'
 import path from 'path'
@@ -19,13 +18,11 @@ if (['production'].includes(nodeEnv)) {
 /**
  * .env
  */
-if (nodeEnv === 'development') {
-    dotEnvConfig({ path: path.resolve(rootDir, '.env') })
-}
+dotEnvConfig({ path: path.resolve(rootDir, '.env') })
 
-import { mongoConnect } from 'src/common/utils/mongo-connect'
 import { staticRouter } from 'src/server/routes/static'
 import { graphqlRouter } from 'src/server/routes/graphql'
+import { mongoConnect } from 'src/common/utils/mongo-connect'
 
 // Create a new express application instance
 const app: express.Application = express()
@@ -43,26 +40,11 @@ function shouldCompress(req: Request, res: Response) {
     return compression.filter(req, res)
 }
 
-// app.use(
-//     session({
-//         secret: process.env.SERVER_SECRET || 'secret',
-//         resave: false,
-//         saveUninitialized: true,
-//         cookie: {
-//             secure: process.env.NODE_ENV === 'production', // use secure cookies in production
-//             httpOnly: true, // prevent client-side access to the cookie
-//             sameSite: 'strict', // enforce same-site cookie policy
-//         },
-//     }),
-// )
-
-app.use(`/graphql/${process.env.VERSION}`, graphqlRouter)
+app.use('/graphql', graphqlRouter)
 app.use('/', staticRouter)
 
 // Go!
 server.listen(port, () => {
     console.log(`🤩 Server started at http://localhost:${port}`)
-    mongoConnect()
-        .then(() => console.log('🤩 Mongo DB connected'))
-        .catch((e) => console.log('😭 Failed to connect Mongo DB:', e))
+    mongoConnect().then(() => console.log('🤩 Mongo DB connected'))
 })

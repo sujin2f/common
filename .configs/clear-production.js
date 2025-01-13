@@ -1,7 +1,6 @@
-import path from 'path'
-import fs from 'fs'
-
-import { config as dotEnvConfig } from 'dotenv'
+const path = require('path')
+const fs = require('fs')
+const configDotenv = require('dotenv').configDotenv
 
 const deleteDirRecursive = (path) => {
     if (fs.existsSync(path)) {
@@ -21,7 +20,7 @@ const deleteDirRecursive = (path) => {
 
 // Read VERSION from .env
 const rootDir = process.cwd()
-dotEnvConfig({ path: path.resolve(rootDir, '.env') })
+configDotenv({ path: path.resolve(rootDir, '.env') })
 
 if (!process.env.VERSION) {
     throw Error('Please add VERSION to your .env file')

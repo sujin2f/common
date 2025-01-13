@@ -1,11 +1,11 @@
-import react from 'eslint-plugin-react'
-import jsxA11y from 'eslint-plugin-jsx-a11y'
-import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
-import hooksPlugin from 'eslint-plugin-react-hooks'
+const react = require('eslint-plugin-react')
+const jsxA11y = require('eslint-plugin-jsx-a11y')
+const eslint = require('@eslint/js')
+const tseslint = require('typescript-eslint')
+const hooksPlugin = require('eslint-plugin-react-hooks')
 
-export default tseslint.config({
-    files: ['**/*.ts', '**/*.tsx'],
+module.export = tseslint.config({
+    files: ['src/**/*.ts', 'src/**/*.tsx'],
     extends: [
         eslint.configs.recommended,
         tseslint.configs.recommended,

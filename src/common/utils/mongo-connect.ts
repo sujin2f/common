@@ -8,6 +8,7 @@ export const mongoConnect = async (): Promise<typeof mongoose> => {
     const uri = `mongodb://${user}:${pass}@${host}`
     const dbName = process.env.MONGO_DATABASE
 
+    console.log(`Mongo DB connection: ${uri} database ${dbName}`)
     if (!user || !pass || !dbName) {
         throw new Error('Mongo DB connection.')
     }

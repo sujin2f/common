@@ -10,24 +10,11 @@ services:
             - 27017:27017
     common:
         container_name: common
-        image: node:latest
-        restart: always
+        image: common
         environment:
             PORT: 80
-            TITLE: ${TITLE}
-            EXCERPT: ${EXCERPT}
-            FRONTEND: ${FRONTEND}
             MONGO: mongo
-            MONGO_USER: ${MONGO_USER}
-            MONGO_PASS: ${MONGO_PASS}
-            MONGO_DATABASE: ${MONGO_DATABASE}
-            GOOGLE_AD_CLIENT: ${GOOGLE_AD_CLIENT}
-            GOOGLE_AD_SLOT: ${GOOGLE_AD_SLOT}
-            SERVER_SECRET: ${SERVER_SECRET}
-            VERSION: ${VERSION}
-        volumes:
-            - ./:/home/node/app
-        working_dir: /home/node/app
-        command: yarn prod:server
         ports:
             - 80:80
+        depends_on:
+            - mongo

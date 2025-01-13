@@ -17,7 +17,7 @@
         "prod:analyze": "source-map-explorer '.build/production/frontend/*.js'",
         "test": "NODE_ENV=development jest --config=.configs/jest.config.json",
         "lint": "eslint --fix ./src/**/*.ts ./src/**/*.tsx",
-        "pretty": "yarn prettier --config .configs/prettier.json -w ./src ./public .configs ./*.yml ./*.js ./*.json"
+        "pretty": "yarn prettier --config .configs/prettier.json -w ./src ./public .configs ./*.yml ./*.js ./*.json ./*.cjs ./*.mjs"
     },
     "dependencies": {},
     "devDependencies": {
@@ -61,6 +61,7 @@
         "eslint-plugin-react-hooks": "^5.1.0",
         "eslint-webpack-plugin": "^4.2.0",
         "express": "^4.18.1",
+        "express-graphql": "^0.12.0",
         "express-session": "^1.18.1",
         "graphql": "^16.6.0",
         "graphql-http": "^1.17.1",

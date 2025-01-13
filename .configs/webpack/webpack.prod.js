@@ -1,20 +1,19 @@
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
-import TerserPlugin from 'terser-webpack-plugin'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
-import path from 'path'
-import { config as dotEnvConfig } from 'dotenv'
-
-import { outputPath } from './paths.js'
+const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin
+const configDotenv = require('dotenv').configDotenv
+const outputPath = require('./paths.js').outputPath
 
 const rootDir = process.cwd()
-dotEnvConfig({ path: path.resolve(rootDir, '.env') })
+configDotenv({ path: path.resolve(rootDir, '.env') })
 
 if (!process.env.VERSION) {
     throw Error('Please add VERSION to your .env file')
 }
 
-export default {
+module.exports = {
     mode: 'production',
     output: {
         publicPath: `/${process.env.VERSION}/`,

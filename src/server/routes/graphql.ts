@@ -1,20 +1,8 @@
-import express from 'express'
-import { createHandler } from 'graphql-http/lib/use/http'
-import { buildSchema } from 'graphql'
-import { graphqlSchema } from 'src/constants/graphql'
 import { dummy } from 'src/server/api/graphql/dummy'
+import { createExpressRouter } from 'src/common/graphql/createExpressRouter'
+import { Dummy, queryDummy } from 'src/constants/graphql'
 
-const graphqlRouter = express.Router()
-const schema = buildSchema(graphqlSchema)
-
-graphqlRouter.use(
-    '/',
-    createHandler({
-        schema,
-        rootValue: {
-            dummy,
-        },
-    }),
+export const graphqlRouter = createExpressRouter(
+    Dummy,
+    queryDummy.setCallback(dummy),
 )
-
-export { graphqlRouter }

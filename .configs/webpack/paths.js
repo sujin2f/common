@@ -1,14 +1,17 @@
-import path from 'path'
+const path = require('path')
 
 // eslint-disable-next-line no-undef
-export const root = process.cwd()
+const root = process.cwd()
+module.exports.root = root
 const baseDir = path.resolve(
     root,
     '.build',
     // eslint-disable-next-line no-undef
     process.env.NODE_ENV || '',
 )
-export const outputPath = path.resolve(baseDir, 'frontend')
-export const entryPath = {
+const outputPath = path.resolve(baseDir, 'frontend')
+module.exports.outputPath = outputPath
+const entryPath = {
     main: path.resolve(root, 'src/frontend/index.tsx'),
 }
+module.exports.entryPath = entryPath
