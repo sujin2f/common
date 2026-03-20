@@ -1,26 +1,19 @@
 {
-    "ts-node": {
-        "files": true
-    },
-    "files": ["src/server/index.ts", "src/global.d.ts"],
     "compilerOptions": {
-        "target": "es2018",
-        "module": "commonjs",
-        "jsx": "react",
-        "outDir": "./.build/development",
-        "removeComments": true,
+        "target": "es2022",
+        "module": "NodeNext",
+        "moduleResolution": "node16",
+        "lib": ["dom", "es2022"],
+        "outDir": "./dist",
         "strict": true,
-        "rootDirs": ["src"],
-        "baseUrl": ".",
-        "paths": {
-            "src/*": ["src/*"]
-        },
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "sourceMap": true,
-        "moduleResolution": "node"
+        "isolatedModules": true,
+        "paths": {
+            "@test/*": ["./.jest/*"]
+        }
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "src/global.d.ts"]
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
 }
