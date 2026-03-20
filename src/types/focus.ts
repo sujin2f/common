@@ -20,7 +20,7 @@ export type T_Bookmark_Partial = {
 // ⚓️ Anchor
 export type T_Anchor = T_Bookmark_Partial & {
     uid: number
-    id: string
+    order?: string
 }
 
 // 🔖 Bookmark
@@ -30,7 +30,6 @@ export type T_Bookmark = T_Anchor &
         shortcut?: string
         parent?: string
         dir?: boolean
-        order?: number
     }
 
 /**
