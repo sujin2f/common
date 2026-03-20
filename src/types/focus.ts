@@ -30,6 +30,7 @@ export type T_Bookmark = T_Anchor &
         shortcut?: string
         parent?: string
         dir?: boolean
+        order?: number
     }
 
 /**
