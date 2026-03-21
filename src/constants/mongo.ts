@@ -10,7 +10,7 @@ export enum COLLECTION {
     BACKGROUNDS = 'backgrounds',
     OPTIONS = 'options',
     SPECTRA = 'spectrum',
-    USERS = 'users',
+    USERS = 'user',
     ARCHIVE = 'archives',
     RECIPE = 'recipes',
     MENU = 'menus',

@@ -5,6 +5,7 @@ import type { JwtPayload } from 'jsonwebtoken'
  */
 export type T_User = {
     _id: string
+    email: string
     admin: boolean
 }
 
