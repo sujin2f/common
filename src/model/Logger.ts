@@ -34,13 +34,17 @@ export const Logger = {
     info: (...message: any[]) => {
         logger.info(join('👀', message))
     },
-    error: (...message: any[]) => {
-        logger.error(join('🤬', message))
-    },
     warn: (...message: any[]) => {
         logger.warn(join('⚠️', message))
     },
     log: (...message: any[]) => {
         logger.info(join('⭐️', message))
+    },
+    error: (...message: any[]) => {
+        logger.error(join('🤬', message))
+    },
+    throw: (...message: any[]) => {
+        logger.error(join('🤬', message))
+        return new Error(JSON.stringify(join('🤬', message)))
     },
 }

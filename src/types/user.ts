@@ -7,7 +7,6 @@ export type T_User = {
     _id: string
     email: string
     admin: boolean
-    refresh?: string
 }
 
 /**
