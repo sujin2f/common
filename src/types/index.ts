@@ -19,6 +19,7 @@ export type Nullable<T> = T | undefined | null | void
 
 /**
  * Quantum Boolean - A three-state boolean value (TRUE, FALSE, MOD).
+ * @deprecated
  */
 export const QuantumBool = {
     FALSE: false,
@@ -28,6 +29,7 @@ export const QuantumBool = {
 
 /**
  * The type of QuantumBool values.
+ * @deprecated
  */
 export type QuantumBool = ConstToType<typeof QuantumBool>
 
