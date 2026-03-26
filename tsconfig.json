@@ -10,10 +10,11 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
+        "types": ["jest", "node"],
         "paths": {
             "@test/*": ["./.jest/*"]
         }
     },
-    "include": ["src/**/*.ts"],
+    "include": ["src/**/*.ts", ".jest/**/*.ts"],
     "exclude": ["node_modules"]
 }
